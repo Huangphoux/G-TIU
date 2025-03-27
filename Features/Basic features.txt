@@ -1,0 +1,25 @@
+Thêm/Xoá/Sửa phân loại
+Tìm kiếm phân loại
+
+Thêm/Xoá/Sửa giao dịch
+Tra cứu giao dịch
+Giao dịch tự động
+
+Báo cáo chi tiêu:
+- Chi tiết (tháng): biểu đồ tròn
+- Tổng quan (các tháng): biểu đồ cột
+- So sánh với tháng trước
+
+Tính trung bình hằng ngày
+Đọc thông báo ngân hàng lấy giao dịch
+
+---
+Thêm phân loại
+- Loại giao dịch: chi, thu, tiết kiệm/đầu tư
+- Tối đa
+
+Thêm giao dịch
+- Số tiền (> 0)
+- Ngày
+- Ghi chú
+
