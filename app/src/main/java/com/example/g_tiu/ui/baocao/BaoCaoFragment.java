@@ -1,4 +1,4 @@
-package com.example.g_tiu.ui.dashboard;
+package com.example.g_tiu.ui.baocao;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.g_tiu.databinding.FragmentDashboardBinding;
+import com.example.g_tiu.databinding.FragmentBaocaoBinding;
 
-public class DashboardFragment extends Fragment {
+public class BaoCaoFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentBaocaoBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        BaoCaoViewModel baoCaoViewModel =
+                new ViewModelProvider(this).get(BaoCaoViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentBaocaoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textBaocao;
+        baoCaoViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
