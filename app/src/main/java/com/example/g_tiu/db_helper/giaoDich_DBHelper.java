@@ -1,5 +1,8 @@
 package com.example.g_tiu.db_helper;
 
+import static com.example.g_tiu.db_helper.loaiGD_DBHelper.COL_MALGD;
+import static com.example.g_tiu.db_helper.loaiGD_DBHelper.TABLE_LOAIGD;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,13 +20,13 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "g-tiu.db";
     public static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "giaoDich";
+    public static final String TABLE_GIAODICH = "giaoDich";
 
-    public static final String COL_ID = "MaGD";
-    public static final String COL_NAME = "TenGD";
-    public static final String COL_DATE = "NgayGD";
-    public static final String COL_AMOUNT = "SoTien";
-    public static final String COL_NOTE = "GhiChu";
+    public static final String COL_MAGD = "MaGD";
+    public static final String COL_TENGD = "TenGD";
+    public static final String COL_NGAYGD = "NgayGD";
+    public static final String COL_SOTIEN = "SoTien";
+    public static final String COL_GHICHU = "GhiChu";
     public static final String COL_TYPE = "LoaiGD";
 
     public giaoDich_DBHelper(@Nullable Context context) {
@@ -34,21 +37,21 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + "(" +
-                COL_ID + " TEXT PRIMARY KEY," +
-                COL_NAME + " TEXT," +
-                COL_DATE + " TEXT," +
-                COL_AMOUNT + " REAL," +
-                COL_NOTE + " TEXT," +
+        String createTable = "CREATE TABLE " + TABLE_GIAODICH + "(" +
+                COL_MAGD + " TEXT PRIMARY KEY," +
+                COL_TENGD + " TEXT," +
+                COL_NGAYGD + " TEXT," +
+                COL_SOTIEN + " REAL," +
+                COL_GHICHU + " TEXT," +
                 COL_TYPE + " TEXT," +
                 "FOREIGN KEY (" + COL_TYPE + ") REFERENCES " +
-                TABLE_NAME + "(" + COL_ID + "))";
+                TABLE_LOAIGD + "(" + COL_MALGD + "))";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GIAODICH);
         onCreate(db);
     }
 
@@ -58,14 +61,14 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         
-        values.put(COL_ID, gd.getMaGD());
-        values.put(COL_NAME, gd.getTenGD());
-        values.put(COL_DATE, gd.getNgayGD());
-        values.put(COL_AMOUNT, gd.getSoTien());
-        values.put(COL_NOTE, gd.getGhiChu());
+        values.put(COL_MAGD, gd.getMaGD());
+        values.put(COL_TENGD, gd.getTenGD());
+        values.put(COL_NGAYGD, gd.getNgayGD());
+        values.put(COL_SOTIEN, gd.getSoTien());
+        values.put(COL_GHICHU, gd.getGhiChu());
         values.put(COL_TYPE, gd.getLoaiGD());
 
-        long result = db.insert(TABLE_NAME, null, values);
+        long result = db.insert(TABLE_GIAODICH, null, values);
         db.close();
         return result != -1;
     }
@@ -74,13 +77,13 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public boolean update(giaoDich gd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_NAME, gd.getTenGD());
-        values.put(COL_DATE, gd.getNgayGD());
-        values.put(COL_AMOUNT, gd.getSoTien());
-        values.put(COL_NOTE, gd.getGhiChu());
+        values.put(COL_TENGD, gd.getTenGD());
+        values.put(COL_NGAYGD, gd.getNgayGD());
+        values.put(COL_SOTIEN, gd.getSoTien());
+        values.put(COL_GHICHU, gd.getGhiChu());
         values.put(COL_TYPE, gd.getLoaiGD());
 
-        int result = db.update(TABLE_NAME, values, COL_ID + "=?", new String[]{gd.getMaGD()});
+        int result = db.update(TABLE_GIAODICH, values, COL_MAGD + "=?", new String[]{gd.getMaGD()});
         db.close();
         return result > 0;
     }
@@ -88,7 +91,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     // DELETE
     public boolean delete(String maGD) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_NAME, COL_ID + "=?", new String[]{maGD});
+        int result = db.delete(TABLE_GIAODICH, COL_MAGD + "=?", new String[]{maGD});
         db.close();
         return result > 0;
     }
@@ -97,7 +100,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public ArrayList<giaoDich> getAll() {
         ArrayList<giaoDich> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GIAODICH, null);
 
         if (cursor.moveToFirst()) {
             do {

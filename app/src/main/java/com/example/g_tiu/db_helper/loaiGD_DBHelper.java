@@ -17,11 +17,11 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "g-tiu.db";
     public static final int DATABASE_VERSION = 1;
-    public static final String TABLE_NAME = "loaiGD";
-    public static final String COL_ID = "MaLGD";
-    public static final String COL_NAME = "TenLGD";
-    public static final String COL_TYPE = "Loai";
-    public static final String COL_BUDGET = "NganSach";
+    public static final String TABLE_LOAIGD = "loaiGD";
+    public static final String COL_MALGD = "MaLGD";
+    public static final String COL_TENLGD = "TenLGD";
+    public static final String COL_KIEUGD = "KieuGD";
+    public static final String COL_NGANSACH = "NganSach";
 
     public loaiGD_DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,18 +31,18 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + "(" +
-                COL_ID + " TEXT PRIMARY KEY," +
-                COL_NAME + " TEXT," +
-                COL_TYPE + " TEXT," +
-                COL_BUDGET + " REAL)";
+        String createTable = "CREATE TABLE " + TABLE_LOAIGD + "(" +
+                COL_MALGD + " TEXT PRIMARY KEY," +
+                COL_TENLGD + " TEXT," +
+                COL_KIEUGD + " TEXT," +
+                COL_NGANSACH + " REAL)";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if exists
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOAIGD);
         onCreate(db);
     }
 
@@ -51,12 +51,12 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COL_ID, lgd.getMaLGD());
-        values.put(COL_NAME, lgd.getTenLGD());
-        values.put(COL_TYPE, lgd.getLoai());
-        values.put(COL_BUDGET, lgd.getNganSach());
+        values.put(COL_MALGD, lgd.getMaLGD());
+        values.put(COL_TENLGD, lgd.getTenLGD());
+        values.put(COL_KIEUGD, lgd.getKieuGD());
+        values.put(COL_NGANSACH, lgd.getNganSach());
 
-        long result = db.insert(TABLE_NAME, null, values);
+        long result = db.insert(TABLE_LOAIGD, null, values);
         db.close();
         return result != -1;
     }
@@ -66,11 +66,11 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(COL_NAME, lgd.getTenLGD());
-        values.put(COL_TYPE, lgd.getLoai());
-        values.put(COL_BUDGET, lgd.getNganSach());
+        values.put(COL_TENLGD, lgd.getTenLGD());
+        values.put(COL_KIEUGD, lgd.getKieuGD());
+        values.put(COL_NGANSACH, lgd.getNganSach());
 
-        int result = db.update(TABLE_NAME, values, COL_ID + "=?", new String[]{lgd.getMaLGD()});
+        int result = db.update(TABLE_LOAIGD, values, COL_MALGD + "=?", new String[]{lgd.getMaLGD()});
         db.close();
         return result > 0;
     }
@@ -78,7 +78,7 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
     // DELETE
     public boolean delete(String maLGD) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int result = db.delete(TABLE_NAME, COL_ID + "=?", new String[]{maLGD});
+        int result = db.delete(TABLE_LOAIGD, COL_MALGD + "=?", new String[]{maLGD});
         db.close();
         return result > 0;
     }
@@ -87,7 +87,7 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
     public ArrayList<loaiGD> getAll() {
         ArrayList<loaiGD> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LOAIGD, null);
 
         if (cursor.moveToFirst()) {
             do {

@@ -3,13 +3,13 @@ package com.example.g_tiu.item;
 public class loaiGD {
     private String MaLGD;
     private String TenLGD;
-    private String Loai;
+    private String KieuGD;
     private double NganSach;
 
-    public loaiGD(String MaLGD, String TenLGD, String Loai, double NganSach) {
+    public loaiGD(String MaLGD, String TenLGD, String KieuGD, double NganSach) {
         this.MaLGD = MaLGD;
         this.TenLGD = TenLGD;
-        this.Loai = Loai;
+        this.KieuGD = KieuGD;
         this.NganSach = NganSach;
     }
 
@@ -29,12 +29,12 @@ public class loaiGD {
         TenLGD = tenLGD;
     }
 
-    public String getLoai() {
-        return Loai;
+    public String getKieuGD() {
+        return KieuGD;
     }
 
-    public void setLoai(String loai) {
-        Loai = loai;
+    public void setKieuGD(String kieuGD) {
+        KieuGD = kieuGD;
     }
 
     public double getNganSach() {
