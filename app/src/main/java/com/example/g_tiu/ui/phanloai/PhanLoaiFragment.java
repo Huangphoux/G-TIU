@@ -24,8 +24,8 @@ public class PhanLoaiFragment extends Fragment {
         binding = FragmentPhanloaiBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textPhanloai;
-        phanLoaiViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textPhanloai;
+//        phanLoaiViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

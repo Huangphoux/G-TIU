@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_phanloai"
         android:name="com.example.g_tiu.ui.phanloai.PhanLoaiFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_phanLoai"
         tools:layout="@layout/fragment_phanloai" />
 
     <fragment
         android:id="@+id/navigation_giaodich"
         android:name="com.example.g_tiu.ui.giaodich.GiaoDichFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_giaoDich"
         tools:layout="@layout/fragment_giaodich" />
 
     <fragment
         android:id="@+id/navigation_baocao"
         android:name="com.example.g_tiu.ui.baocao.BaoCaoFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_baoCao"
         tools:layout="@layout/fragment_baocao" />
 </navigation>

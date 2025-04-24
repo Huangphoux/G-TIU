@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_phanloai"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="Phân loại" />
+        android:title="@string/title_phanLoai" />
 
     <item
         android:id="@+id/navigation_giaodich"
         android:icon="@android:drawable/ic_menu_today"
-        android:title="Giao dịch" />
+        android:title="@string/title_giaoDich" />
 
     <item
         android:id="@+id/navigation_baocao"
         android:icon="@android:drawable/stat_notify_chat"
-        android:title="Báo cáo" />
+        android:title="@string/title_baoCao" />
 
 </menu>
