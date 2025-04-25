@@ -69,7 +69,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         values.put(COL_TYPE, gd.getLoaiGD());
 
         long result = db.insert(TABLE_GIAODICH, null, values);
-        db.close();
+//        db.close();
         return result != -1;
     }
 
@@ -84,7 +84,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         values.put(COL_TYPE, gd.getLoaiGD());
 
         int result = db.update(TABLE_GIAODICH, values, COL_MAGD + "=?", new String[]{gd.getMaGD()});
-        db.close();
+//        db.close();
         return result > 0;
     }
 
@@ -92,7 +92,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public boolean delete(String maGD) {
         SQLiteDatabase db = this.getWritableDatabase();
         int result = db.delete(TABLE_GIAODICH, COL_MAGD + "=?", new String[]{maGD});
-        db.close();
+//        db.close();
         return result > 0;
     }
 
@@ -116,7 +116,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-        db.close();
+//        db.close();
         return list;
     }
 }

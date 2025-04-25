@@ -57,7 +57,7 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
         values.put(COL_NGANSACH, lgd.getNganSach());
 
         long result = db.insert(TABLE_LOAIGD, null, values);
-        db.close();
+//        db.close();
         return result != -1;
     }
 
@@ -71,7 +71,7 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
         values.put(COL_NGANSACH, lgd.getNganSach());
 
         int result = db.update(TABLE_LOAIGD, values, COL_MALGD + "=?", new String[]{lgd.getMaLGD()});
-        db.close();
+//        db.close();
         return result > 0;
     }
 
@@ -79,7 +79,7 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
     public boolean delete(String maLGD) {
         SQLiteDatabase db = this.getWritableDatabase();
         int result = db.delete(TABLE_LOAIGD, COL_MALGD + "=?", new String[]{maLGD});
-        db.close();
+//        db.close();
         return result > 0;
     }
 
@@ -93,14 +93,14 @@ public class loaiGD_DBHelper extends SQLiteOpenHelper {
             do {
                 String ma = cursor.getString(0);
                 String ten = cursor.getString(1);
-                String loai = cursor.getString(2);
+                String kieu = cursor.getString(2);
                 double nganSach = cursor.getDouble(3);
-                list.add(new loaiGD(ma, ten, loai, nganSach));
+                list.add(new loaiGD(ma, ten, kieu, nganSach));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
-        db.close();
+//        db.close();
         return list;
     }
 }
