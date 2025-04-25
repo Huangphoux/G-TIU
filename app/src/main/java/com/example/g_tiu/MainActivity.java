@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         db = new loaiGD_DBHelper(this);
 
         String id;
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 5; i++) {
             id = UUID.randomUUID().toString();
             db.add(new loaiGD(id, "John Cena", "thunhap", 0.0));
         }
