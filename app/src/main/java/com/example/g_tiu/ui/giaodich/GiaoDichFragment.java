@@ -24,8 +24,8 @@ public class GiaoDichFragment extends Fragment {
         binding = FragmentGiaodichBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGiaodich;
-        giaoDichViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textGiaodich;
+//        giaoDichViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

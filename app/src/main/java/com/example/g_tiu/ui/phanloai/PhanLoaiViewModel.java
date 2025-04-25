@@ -9,6 +9,7 @@ public class PhanLoaiViewModel extends ViewModel {
 //    private final MutableLiveData<String> mText;
 
     public PhanLoaiViewModel() {
+
 //        mText = new MutableLiveData<>();
 //        mText.setValue("This is home fragment");
     }

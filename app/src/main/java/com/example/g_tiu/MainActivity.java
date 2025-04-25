@@ -2,6 +2,8 @@ package com.example.g_tiu;
 
 import android.os.Bundle;
 
+import com.example.g_tiu.db_helper.loaiGD_DBHelper;
+import com.example.g_tiu.item.loaiGD;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.g_tiu.databinding.ActivityMainBinding;
 
+import java.util.UUID;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    loaiGD_DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,20 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        db = new loaiGD_DBHelper(this);
+
+        String id;
+        for (int i = 0; i < 1; i++) {
+            id = UUID.randomUUID().toString();
+            db.add(new loaiGD(id, "John Cena", "thunhap", 0.0));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        db.close();
+        super.onDestroy();
     }
 
 }
