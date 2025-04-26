@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+    tools:context=".addPhanLoai">
+
+    <TextView
+        android:id="@+id/textView_addPhanLoai_nganSach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngân sách"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_thuNhap" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_addPhanLoai"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
+
+    <TextView
+        android:id="@+id/textView_addPhanLoai_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên phân loại"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_addPhanLoai" />
+
+    <TextView
+        android:id="@+id/textView_addPhanLoai_kieuGD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kiểu giao dịch"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText_tenPhanLoai" />
+
+    <EditText
+        android:id="@+id/editText_tenPhanLoai"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addPhanLoai_ten" />
+
+    <Button
+        android:id="@+id/button_phanLoai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/baseline_add_shopping_cart_24"
+        android:text="@string/title_chiTieu"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintEnd_toStartOf="@+id/button_thuNhap"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addPhanLoai_kieuGD" />
+
+    <Button
+        android:id="@+id/button_thuNhap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/baseline_attach_money_24"
+        android:text="@string/title_thuNhap"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintEnd_toStartOf="@+id/button_tietKiem"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_phanLoai"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addPhanLoai_kieuGD" />
+
+    <Button
+        android:id="@+id/button_tietKiem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/baseline_bar_chart_24"
+        android:text="@string/title_tietKiem"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_thuNhap"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addPhanLoai_kieuGD" />
+
+    <EditText
+        android:id="@+id/editText_nganSach"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addPhanLoai_nganSach" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

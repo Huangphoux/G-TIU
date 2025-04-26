@@ -9,10 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.g_tiu.item.*;
+import com.example.g_tiu.item.giaoDich;
 
 import java.util.ArrayList;
 
@@ -57,7 +56,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public boolean add(giaoDich gd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        
+
         values.put(COL_MAGD, gd.getMaGD());
         values.put(COL_NGAYGD, gd.getNgayGD());
         values.put(COL_SOTIEN, gd.getSoTien());
