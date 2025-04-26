@@ -3,4 +3,7 @@
     <string name="title_phanLoai">Phân loại</string>
     <string name="title_giaoDich">Giao dịch</string>
     <string name="title_baoCao">Báo cáo</string>
+    <string name="title_chiTieu">Chi tiêu</string>
+    <string name="title_thuNhap">Thu nhập</string>
+    <string name="title_tietKiem">Tiết kiệm</string>
 </resources>

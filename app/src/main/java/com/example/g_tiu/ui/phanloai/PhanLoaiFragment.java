@@ -52,6 +52,7 @@ public class PhanLoaiFragment extends Fragment {
         setUpRecyclerView();
         swipeToRemove();
 
+
         FloatingActionButton fab_phanLoai = root.findViewById(R.id.fab_phanLoai);
         fab_phanLoai.setOnClickListener(v -> {
 

@@ -40,7 +40,6 @@ public class GiaoDichFragment extends Fragment {
         binding = FragmentGiaodichBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         // use getActivity, not getContext!
         db = new giaoDich_DBHelper(getActivity());
         list = db.getAll();
