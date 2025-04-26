@@ -1,10 +1,14 @@
 package com.example.g_tiu.ui.phanloai;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.phanLoaiAdapter;
+import com.example.g_tiu.addPhanLoai;
 import com.example.g_tiu.databinding.FragmentPhanloaiBinding;
 import com.example.g_tiu.db_helper.loaiGD_DBHelper;
 import com.example.g_tiu.item.loaiGD;
@@ -32,6 +37,7 @@ public class PhanLoaiFragment extends Fragment {
     private phanLoaiAdapter adapter;
     private ArrayList<loaiGD> list;
     private BottomNavigationView navView;
+    private ActivityResultLauncher<Intent> launcher;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,10 +58,20 @@ public class PhanLoaiFragment extends Fragment {
         setUpRecyclerView();
         swipeToRemove();
 
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    // OMG I HAD TO ALSO reloadTodoList for resultCode = 1 !!!
+                    if (result.getResultCode() == 1) {
+                        prepareData();
+                    }
+                }
+        );
 
         FloatingActionButton fab_phanLoai = root.findViewById(R.id.fab_phanLoai);
         fab_phanLoai.setOnClickListener(v -> {
-
+            Intent intent = new Intent(getActivity(), addPhanLoai.class);
+            launcher.launch(intent);
         });
 
         return root;
