@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tiền Lãi", "thunhap", 0.0));
         listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tiết Kiệm", "tietkiem", 0.0));
 
-        if (addedLGDs == false) {
+        if (db.getAll().isEmpty()) {
             for (loaiGD lgd : listLGD) {
                 db.add(lgd);
             }
