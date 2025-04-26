@@ -20,9 +20,7 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "g-tiu.db";
     public static final int DATABASE_VERSION = 1;
     public static final String TABLE_GIAODICH = "giaoDich";
-
     public static final String COL_MAGD = "MaGD";
-    public static final String COL_TENGD = "TenGD";
     public static final String COL_NGAYGD = "NgayGD";
     public static final String COL_SOTIEN = "SoTien";
     public static final String COL_GHICHU = "GhiChu";
@@ -38,7 +36,6 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_GIAODICH + "(" +
                 COL_MAGD + " TEXT PRIMARY KEY," +
-                COL_TENGD + " TEXT," +
                 COL_NGAYGD + " TEXT," +
                 COL_SOTIEN + " REAL," +
                 COL_GHICHU + " TEXT," +
@@ -61,7 +58,6 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(COL_MAGD, gd.getMaGD());
-        values.put(COL_TENGD, gd.getTenGD());
         values.put(COL_NGAYGD, gd.getNgayGD());
         values.put(COL_SOTIEN, gd.getSoTien());
         values.put(COL_GHICHU, gd.getGhiChu());
@@ -76,7 +72,6 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
     public boolean update(giaoDich gd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_TENGD, gd.getTenGD());
         values.put(COL_NGAYGD, gd.getNgayGD());
         values.put(COL_SOTIEN, gd.getSoTien());
         values.put(COL_GHICHU, gd.getGhiChu());
@@ -104,13 +99,12 @@ public class giaoDich_DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 String ma = cursor.getString(0);
-                String ten = cursor.getString(1);
-                String ngay = cursor.getString(2);
-                double tien = cursor.getDouble(3);
-                String ghiChu = cursor.getString(4);
-                String loai = cursor.getString(5);
+                String ngay = cursor.getString(1);
+                double tien = cursor.getDouble(2);
+                String ghiChu = cursor.getString(3);
+                String loai = cursor.getString(4);
 
-                list.add(new giaoDich(ma, ten, ngay, tien, ghiChu, loai));
+                list.add(new giaoDich(ma, ngay, tien, ghiChu, loai));
             } while (cursor.moveToNext());
         }
 

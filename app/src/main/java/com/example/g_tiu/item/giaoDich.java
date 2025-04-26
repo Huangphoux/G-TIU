@@ -2,15 +2,13 @@ package com.example.g_tiu.item;
 
 public class giaoDich {
     private String MaGD;
-    private String TenGD;
     private String NgayGD;
     private double SoTien;
     private String GhiChu;
     private String LoaiGD;
 
-    public giaoDich(String MaGD, String TenGD, String NgayGD, double SoTien, String GhiChu, String LoaiGD) {
+    public giaoDich(String MaGD, String NgayGD, double SoTien, String GhiChu, String LoaiGD) {
         this.MaGD = MaGD;
-        this.TenGD = TenGD;
         this.NgayGD = NgayGD;
         this.SoTien = SoTien;
         this.GhiChu = GhiChu;
@@ -23,14 +21,6 @@ public class giaoDich {
 
     public void setMaGD(String maGD) {
         MaGD = maGD;
-    }
-
-    public String getTenGD() {
-        return TenGD;
-    }
-
-    public void setTenGD(String tenGD) {
-        TenGD = tenGD;
     }
 
     public String getNgayGD() {
