@@ -14,12 +14,16 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.g_tiu.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     loaiGD_DBHelper db;
+    boolean addedLGDs = false;
+    private List<loaiGD> listLGD = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,31 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         db = new loaiGD_DBHelper(this);
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Ăn Uống", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tạp Hoá", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Giao Thông", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Mua Sắm", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Giải trí", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Làm Đẹp", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Sức Khoẻ", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Từ Thiện", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Hoá Đơn", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Nhà Ở", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Gia Đình", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Đầu Tư", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Học Tập", "chitieu", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tiền Nợ", "thunhap", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Kinh Doanh", "thunhap", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Trợ Cấp", "thunhap", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Lương", "thunhap", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tiền Lãi", "thunhap", 0.0));
+        listLGD.add(new loaiGD(UUID.randomUUID().toString(), "Tiết Kiệm", "tietkiem", 0.0));
 
-        String id;
-        for (int i = 0; i < 5; i++) {
-            id = UUID.randomUUID().toString();
-            db.add(new loaiGD(id, "John Cena", "thunhap", 0.0));
+        if (addedLGDs == false) {
+            for (loaiGD lgd : listLGD) {
+                db.add(lgd);
+            }
+            addedLGDs = true;
         }
     }
 
