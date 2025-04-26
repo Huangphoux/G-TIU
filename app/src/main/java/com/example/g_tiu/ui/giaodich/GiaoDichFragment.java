@@ -1,10 +1,13 @@
 package com.example.g_tiu.ui.giaodich;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.giaoDichAdapter;
+import com.example.g_tiu.addGiaoDich;
+import com.example.g_tiu.addPhanLoai;
 import com.example.g_tiu.databinding.FragmentGiaodichBinding;
 import com.example.g_tiu.db_helper.giaoDich_DBHelper;
 import com.example.g_tiu.item.giaoDich;
@@ -31,6 +36,7 @@ public class GiaoDichFragment extends Fragment {
     private giaoDichAdapter adapter;
     private ArrayList<giaoDich> list;
     private BottomNavigationView navView;
+    private ActivityResultLauncher<Intent> launcher;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,9 +57,21 @@ public class GiaoDichFragment extends Fragment {
         setUpRecyclerView();
         swipeToRemove();
 
+
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    // OMG I HAD TO ALSO reloadTodoList for resultCode = 1 !!!
+                    if (result.getResultCode() == 1) {
+                        prepareData();
+                    }
+                }
+        );
+
         FloatingActionButton fab_giaoDich = root.findViewById(R.id.fab_giaoDich);
         fab_giaoDich.setOnClickListener(v -> {
-
+            Intent intent = new Intent(getActivity(), addGiaoDich.class);
+            launcher.launch(intent);
         });
 
         return root;
