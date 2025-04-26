@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     loaiGD_DBHelper db;
-    boolean addedLGDs = false;
     private List<loaiGD> listLGD = new ArrayList<>();
 
     @Override
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             for (loaiGD lgd : listLGD) {
                 db.add(lgd);
             }
-            addedLGDs = true;
         }
     }
 
