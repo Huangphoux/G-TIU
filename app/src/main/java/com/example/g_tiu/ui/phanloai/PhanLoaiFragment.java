@@ -1,7 +1,6 @@
 package com.example.g_tiu.ui.phanloai;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.example.g_tiu.databinding.FragmentPhanloaiBinding;
 import com.example.g_tiu.db_helper.loaiGD_DBHelper;
 import com.example.g_tiu.item.loaiGD;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -41,15 +41,9 @@ public class PhanLoaiFragment extends Fragment {
         binding = FragmentPhanloaiBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        phanLoaiViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
         // use getActivity, not getContext!
         db = new loaiGD_DBHelper(getActivity());
         list = db.getAll();
-
-        if(list.isEmpty()) {
-            Log.d("Error", "The list is empty son!");
-        }
 
         navView = root.findViewById(R.id.nav_view);
 
@@ -58,10 +52,15 @@ public class PhanLoaiFragment extends Fragment {
         setUpRecyclerView();
         swipeToRemove();
 
+        FloatingActionButton fab_phanLoai = root.findViewById(R.id.fab_phanLoai);
+        fab_phanLoai.setOnClickListener(v -> {
+
+        });
+
         return root;
     }
 
-    private void setUpRecyclerView(){
+    private void setUpRecyclerView() {
         recyclerView.setHasFixedSize(true);
 
         // use getActivity, not getContext!
@@ -73,7 +72,7 @@ public class PhanLoaiFragment extends Fragment {
         prepareData();
     }
 
-    private void swipeToRemove(){
+    private void swipeToRemove() {
         // on below line we are creating a method to create item touch helper
         // method for adding swipe to delete functionality.
         // in this we are specifying drag direction and position to right
@@ -106,17 +105,17 @@ public class PhanLoaiFragment extends Fragment {
                 Snackbar snackbar = Snackbar
                         .make(recyclerView, "Deleted " + deletedItem.getTenLGD(), Snackbar.LENGTH_SHORT)
                         .setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // adding on click listener to our action of snack bar.
-                        // below line is to add our item to array list with a position.
-                        list.add(position, deletedItem);
+                            @Override
+                            public void onClick(View v) {
+                                // adding on click listener to our action of snack bar.
+                                // below line is to add our item to array list with a position.
+                                list.add(position, deletedItem);
 
-                        // below line is to notify item is
-                        // added to our adapter class.
-                        adapter.notifyItemInserted(position);
-                    }
-                });
+                                // below line is to notify item is
+                                // added to our adapter class.
+                                adapter.notifyItemInserted(position);
+                            }
+                        });
                 snackbar.setAnchorView(navView);
 
                 snackbar.show();

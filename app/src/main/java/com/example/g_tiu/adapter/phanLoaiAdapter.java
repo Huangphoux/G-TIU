@@ -20,19 +20,14 @@ public class phanLoaiAdapter extends RecyclerView.Adapter<phanLoaiAdapter.phanLo
     Context context;
     LayoutInflater layoutInflater;
 
-    protected static class phanLoaiViewHolder extends RecyclerView.ViewHolder {
-        protected TextView tenPhanLoai;
-        protected TextView tongPhanLoai;
-        public phanLoaiViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tenPhanLoai = itemView.findViewById(R.id.textView_phanLoai_ten);
-            tongPhanLoai = itemView.findViewById(R.id.textView_phanLoai_tong);
-        }
+    public phanLoaiAdapter(List<loaiGD> list) {
+        this.list = list;
     }
 
-    public phanLoaiAdapter(List<loaiGD> list){
-        this.list = list;
+    public phanLoaiAdapter(Context context) {
+        this.list = new ArrayList<>();
+        this.context = context;
+        this.layoutInflater = LayoutInflater.from(this.context);
     }
 
     // Create new views (invoked by the layout manager)
@@ -66,10 +61,16 @@ public class phanLoaiAdapter extends RecyclerView.Adapter<phanLoaiAdapter.phanLo
         notifyDataSetChanged();
     }
 
-    public phanLoaiAdapter(Context context) {
-        this.list = new ArrayList<>();
-        this.context = context;
-        this.layoutInflater = LayoutInflater.from(this.context);
+    public static class phanLoaiViewHolder extends RecyclerView.ViewHolder {
+        protected TextView tenPhanLoai;
+        protected TextView tongPhanLoai;
+
+        public phanLoaiViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tenPhanLoai = itemView.findViewById(R.id.textView_phanLoai_ten);
+            tongPhanLoai = itemView.findViewById(R.id.textView_phanLoai_tong);
+        }
     }
 
 }

@@ -2,10 +2,6 @@ package com.example.g_tiu;
 
 import android.os.Bundle;
 
-import com.example.g_tiu.db_helper.loaiGD_DBHelper;
-import com.example.g_tiu.item.loaiGD;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -13,6 +9,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.g_tiu.databinding.ActivityMainBinding;
+import com.example.g_tiu.db_helper.loaiGD_DBHelper;
+import com.example.g_tiu.item.loaiGD;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,9 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     loaiGD_DBHelper db;
     boolean addedLGDs = false;
+    private ActivityMainBinding binding;
     private List<loaiGD> listLGD = new ArrayList<>();
 
     @Override

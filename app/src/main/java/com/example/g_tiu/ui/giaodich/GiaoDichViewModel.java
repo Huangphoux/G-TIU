@@ -1,7 +1,5 @@
 package com.example.g_tiu.ui.giaodich;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class GiaoDichViewModel extends ViewModel {
