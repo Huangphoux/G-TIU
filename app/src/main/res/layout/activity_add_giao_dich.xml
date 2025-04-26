@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addGiaoDich">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar_addGiaoDich"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText_soTien"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/textView_addGiaoDich_soTien"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView_addGiaoDich_soTien"
+        app:layout_constraintTop_toBottomOf="@+id/textView_addGiaoDich_soTien" />
+
+    <TextView
+        android:id="@+id/textView_addGiaoDich_soTien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số tiền"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar_addGiaoDich" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/textView_ngayGD"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textView_ngayGD"
+        app:layout_constraintTop_toBottomOf="@+id/textView_ngayGD" />
+
+    <TextView
+        android:id="@+id/textView_ngayGD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngày giao dịch"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/editText_soTien"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/editText_soTien"
+        app:layout_constraintTop_toBottomOf="@+id/editText_soTien" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,17 +8,6 @@
     android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
     tools:context=".addPhanLoai">
 
-    <TextView
-        android:id="@+id/textView_addPhanLoai_nganSach"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ngân sách"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_thuNhap" />
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_addPhanLoai"
         android:layout_width="409dp"
@@ -31,6 +20,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" />
+
+    <TextView
+        android:id="@+id/textView_addPhanLoai_nganSach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ngân sách"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_thuNhap" />
 
     <TextView
         android:id="@+id/textView_addPhanLoai_ten"
