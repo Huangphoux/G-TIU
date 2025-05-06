@@ -21,6 +21,7 @@ import com.example.g_tiu.adapter.phanLoaiAdapter;
 import com.example.g_tiu.addPhanLoai;
 import com.example.g_tiu.databinding.FragmentPhanloaiBinding;
 import com.example.g_tiu.db_helper.loaiGD_DBHelper;
+import com.example.g_tiu.domain.data.PhanLoai;
 import com.example.g_tiu.item.loaiGD;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,24 +33,27 @@ import java.util.ArrayList;
 public class PhanLoaiFragment extends Fragment {
 
     private FragmentPhanloaiBinding binding;
-    private loaiGD_DBHelper db;
     private RecyclerView recyclerView;
     private phanLoaiAdapter adapter;
     private ArrayList<loaiGD> list;
+    private ArrayList<PhanLoai> categories;
     private BottomNavigationView navView;
     private ActivityResultLauncher<Intent> launcher;
+    private PhanLoaiViewModel phanLoaiViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        PhanLoaiViewModel phanLoaiViewModel =
-                new ViewModelProvider(this).get(PhanLoaiViewModel.class);
+        phanLoaiViewModel = new ViewModelProvider(this).get(PhanLoaiViewModel.class);
+
+        phanLoaiViewModel.categoriesLiveData.observe(getViewLifecycleOwner(), phanLoais -> {
+            categories = new ArrayList<>(phanLoais);
+            adapter = new phanLoaiAdapter(categories);
+            recyclerView.setAdapter(adapter);
+        });
+        phanLoaiViewModel.getCategories();
 
         binding = FragmentPhanloaiBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        // use getActivity, not getContext!
-        db = new loaiGD_DBHelper(getActivity());
-        list = db.getAll();
 
         navView = root.findViewById(R.id.nav_view);
 
@@ -79,14 +83,9 @@ public class PhanLoaiFragment extends Fragment {
 
     private void setUpRecyclerView() {
         recyclerView.setHasFixedSize(true);
-
         // use getActivity, not getContext!
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        adapter = new phanLoaiAdapter(list);
-        recyclerView.setAdapter(adapter);
-
-        prepareData();
+        // prepareData();
     }
 
     private void swipeToRemove() {
@@ -143,14 +142,12 @@ public class PhanLoaiFragment extends Fragment {
     }
 
     private void prepareData() {
-        list.clear();
-        list = db.getAll();
-        adapter.update(list);
+        phanLoaiViewModel.getCategories();
     }
 
     @Override
     public void onDestroyView() {
-        db.close();
+
         super.onDestroyView();
         binding = null;
     }

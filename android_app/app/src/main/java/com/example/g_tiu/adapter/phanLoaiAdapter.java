@@ -10,17 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g_tiu.R;
+import com.example.g_tiu.domain.data.PhanLoai;
 import com.example.g_tiu.item.loaiGD;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class phanLoaiAdapter extends RecyclerView.Adapter<phanLoaiAdapter.phanLoaiViewHolder> {
-    private final List<loaiGD> list;
+    private final List<PhanLoai> list;
     Context context;
     LayoutInflater layoutInflater;
 
-    public phanLoaiAdapter(List<loaiGD> list) {
+    public phanLoaiAdapter(List<PhanLoai> list) {
         this.list = list;
     }
 
@@ -44,9 +45,9 @@ public class phanLoaiAdapter extends RecyclerView.Adapter<phanLoaiAdapter.phanLo
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull phanLoaiViewHolder holder, int position) {
-        loaiGD phanLoai = list.get(position);
-        holder.tenPhanLoai.setText(phanLoai.getTenLGD());
-        holder.tongPhanLoai.setText("100");
+        PhanLoai phanLoai = list.get(position);
+        holder.tenPhanLoai.setText(phanLoai.getName());
+        holder.tongPhanLoai.setText(String.valueOf(phanLoai.getBudget()));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -55,7 +56,7 @@ public class phanLoaiAdapter extends RecyclerView.Adapter<phanLoaiAdapter.phanLo
         return list.size();
     }
 
-    public void update(List<loaiGD> item) {
+    public void update(List<PhanLoai> item) {
         list.clear();
         list.addAll(item);
         notifyDataSetChanged();

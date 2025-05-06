@@ -68,6 +68,7 @@
         android:id="@+id/button_phanLoai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#1A000000"
         android:drawableTop="@drawable/baseline_add_shopping_cart_24"
         android:text="@string/title_chiTieu"
         android:textColor="@android:color/primary_text_light"
