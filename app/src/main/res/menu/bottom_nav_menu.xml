@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_phanloai"
+        android:id="@+id/navigation_category"
         android:icon="@android:drawable/ic_menu_sort_by_size"
         android:title="@string/title_phanLoai" />
 
     <item
-        android:id="@+id/navigation_giaodich"
+        android:id="@+id/navigation_transactions"
         android:icon="@android:drawable/ic_menu_today"
         android:title="@string/title_giaoDich" />
 
     <item
-        android:id="@+id/navigation_baocao"
+        android:id="@+id/navigation_overview"
         android:icon="@android:drawable/stat_notify_chat"
         android:title="@string/title_baoCao" />
 
