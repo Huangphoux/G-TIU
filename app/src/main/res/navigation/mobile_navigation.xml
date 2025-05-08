@@ -9,17 +9,33 @@
         android:id="@+id/navigation_category"
         android:name="com.example.g_tiu.ui.category.CategoryFragment"
         android:label="@string/title_phanLoai"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_navigation_category_to_navigation_add_category"
+            app:destination="@id/navigation_add_category" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_giaodich"
-        android:name="com.example.g_tiu.ui.giaodich.GiaoDichFragment"
+        android:id="@+id/navigation_add_category"
+        android:name="com.example.g_tiu.ui.category.AddCategoryFragment"
+        android:label="Thêm phân loại"
+        tools:layout="@layout/fragment_add_category" />
+
+    <fragment
+        android:id="@+id/navigation_transactions"
+        android:name="com.example.g_tiu.ui.transactions.TransactionsFragment"
         android:label="@string/title_giaoDich"
-        tools:layout="@layout/fragment_giaodich" />
+        tools:layout="@layout/fragment_transactions" />
 
-    <fragment
-        android:id="@+id/navigation_baocao"
-        android:name="com.example.g_tiu.ui.baocao.BaoCaoFragment"
-        android:label="@string/title_baoCao"
-        tools:layout="@layout/fragment_baocao" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_giaodich"-->
+<!--        android:name="com.example.g_tiu.ui.giaodich.GiaoDichFragment"-->
+<!--        android:label="@string/title_giaoDich"-->
+<!--        tools:layout="@layout/fragment_giaodich" />-->
+
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_baocao"-->
+<!--        android:name="com.example.g_tiu.ui.baocao.BaoCaoFragment"-->
+<!--        android:label="@string/title_baoCao"-->
+<!--        tools:layout="@layout/fragment_baocao" />-->
 </navigation>

@@ -12,12 +12,14 @@ import com.example.g_tiu.databinding.ItemCategoryBinding;
 import com.example.g_tiu.databinding.ItemCategoryHeaderBinding;
 import com.example.g_tiu.item.Category;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_ITEM = 1;
+    public static final int TYPE_HEADER = 0;
+    public static final int TYPE_ITEM = 1;
 
     private List<Category> categories;
 
@@ -70,9 +72,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(Category category) {
             binding.tvName.setText(category.getName());
-            // TODO: set total
+            NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String formatted = format.format(category.getBudget());
+            binding.tvBudget.setText("0/" + formatted);
         }
     }
 
@@ -84,6 +89,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.binding = binding;
         }
 
+        @SuppressLint("SetTextI18n")
         public void bind(Category category) {
             switch (category.getName()) {
                 case "expenses":
@@ -97,7 +103,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     break;
             }
             binding.tvName.setText(category.getName());
-            // TODO: set total
+            NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
+            String formatted = format.format(category.getBudget());
+            binding.tvTotal.setText("0/" + formatted);
         }
     }
 }
