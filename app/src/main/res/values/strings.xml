@@ -7,4 +7,8 @@
     <string name="title_thuNhap">Thu nhập</string>
     <string name="title_tietKiem">Tiết kiệm</string>
     <string name="add_category">add_category</string>
+    <string name="empty_transactions">Chưa phát sinh giao dịch</string>
+    <string name="hint_search">Tìm kiếm:</string>
+    <string name="hint_text_search">Nhập từ khoá tìm kiếm</string>
+    <string name="unit_current">VNĐ</string>
 </resources>
