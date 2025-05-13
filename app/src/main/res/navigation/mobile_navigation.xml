@@ -25,17 +25,15 @@
         android:id="@+id/navigation_transactions"
         android:name="com.example.g_tiu.ui.transactions.TransactionsFragment"
         android:label="@string/title_giaoDich"
-        tools:layout="@layout/fragment_transactions" />
+        tools:layout="@layout/fragment_transactions" >
+        <action
+            android:id="@+id/action_navigation_transactions_to_navigation_from_transactions"
+            app:destination="@id/navigation_from_transactions" />
+    </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_giaodich"-->
-<!--        android:name="com.example.g_tiu.ui.giaodich.GiaoDichFragment"-->
-<!--        android:label="@string/title_giaoDich"-->
-<!--        tools:layout="@layout/fragment_giaodich" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_baocao"-->
-<!--        android:name="com.example.g_tiu.ui.baocao.BaoCaoFragment"-->
-<!--        android:label="@string/title_baoCao"-->
-<!--        tools:layout="@layout/fragment_baocao" />-->
+    <fragment
+        android:id="@+id/navigation_from_transactions"
+        android:name="com.example.g_tiu.ui.transactions.FromTransactionsFragment"
+        android:label="Thêm giao dịch"
+        tools:layout="@layout/fragment_from_transactions" />
 </navigation>

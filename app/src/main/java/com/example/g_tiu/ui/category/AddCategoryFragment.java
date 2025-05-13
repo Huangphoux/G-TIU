@@ -37,6 +37,10 @@ public class AddCategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        binding.ivBack.setOnClickListener(v -> {
+            ((MainActivity) requireActivity()).showMenu();
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
         viewModel.getInsertResultLiveData().observe(getViewLifecycleOwner(), success -> {
             if (success) {
                 Toast.makeText(requireContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
@@ -93,6 +97,12 @@ public class AddCategoryFragment extends Fragment {
             Category category = new Category(name, type, budgetLong);
             viewModel.insertCategory(category);
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((MainActivity) requireActivity()).showMenu();
     }
 
     @Override

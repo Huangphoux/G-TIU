@@ -94,15 +94,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             switch (category.getName()) {
                 case "expenses":
                     binding.ivIcon.setImageResource(R.drawable.icons_expenses);
+                    binding.tvName.setText("chi tiêu");
                     break;
                 case "income":
                     binding.ivIcon.setImageResource(R.drawable.icons_income);
+                    binding.tvName.setText("thu nhập");
                     break;
                 case "saving":
                     binding.ivIcon.setImageResource(R.drawable.icons_saving);
+                    binding.tvName.setText("tiết kiệm");
                     break;
             }
-            binding.tvName.setText(category.getName());
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
             String formatted = format.format(category.getBudget());
             binding.tvTotal.setText("0/" + formatted);

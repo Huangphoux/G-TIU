@@ -8,30 +8,35 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.g_tiu.MainActivity;
-import com.example.g_tiu.R;
+import com.example.g_tiu.databinding.FragmentFromTransactionsBinding;
 import com.example.g_tiu.databinding.FragmentTransactionsBinding;
 
-public class TransactionsFragment extends Fragment {
+public class FromTransactionsFragment extends Fragment {
 
-    private FragmentTransactionsBinding binding;
+    private FragmentFromTransactionsBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentTransactionsBinding.inflate(inflater, container, false);
+        binding = FragmentFromTransactionsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.fabAddTransactions.setOnClickListener(v -> {
-            ((MainActivity) requireActivity()).hideMenu();
-            Navigation.findNavController(view).navigate(R.id.action_navigation_transactions_to_navigation_from_transactions);
+        binding.ivBack.setOnClickListener(v -> {
+            ((MainActivity) requireActivity()).showMenu();
+            requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((MainActivity) requireActivity()).showMenu();
     }
 
     @Override

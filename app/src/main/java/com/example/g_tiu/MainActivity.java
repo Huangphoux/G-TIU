@@ -3,6 +3,7 @@ package com.example.g_tiu;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideMenu() {
-        binding.navView.setVisibility(View.GONE);
+        binding.navView.setVisibility(View.INVISIBLE);
     }
 
     public void showMenu() {
