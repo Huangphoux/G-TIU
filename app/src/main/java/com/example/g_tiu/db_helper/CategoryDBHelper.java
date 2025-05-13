@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.g_tiu.item.Category;
-import com.example.g_tiu.item.loaiGD;
 
 import java.util.ArrayList;
 
@@ -92,5 +91,22 @@ public class CategoryDBHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return list;
+    }
+
+    public Category getOneById(int categoryId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + COL_ID + "=?", new String[]{String.valueOf(categoryId)});
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME));
+            String type = cursor.getString(cursor.getColumnIndexOrThrow(COL_TYPE));
+            long budget = cursor.getLong(cursor.getColumnIndexOrThrow(COL_BUDGET));
+
+            return new Category(id, name, type, budget);
+        }
+
+        cursor.close();
+        return null;
     }
 }

@@ -13,11 +13,11 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/raleway_regular"
-        android:text="Tháng 5, 2025"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Tháng 5, 2025" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivSelectedTime"
@@ -64,12 +64,12 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/raleway_bold"
         android:includeFontPadding="false"
-        android:text="20.000.000"
         android:textColor="@color/color_main"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMonthYear" />
+        app:layout_constraintTop_toBottomOf="@id/tvMonthYear"
+        tools:text="20.000.000" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/raleway_bold"
         android:includeFontPadding="false"
-        android:text="VNĐ"
+        android:text="@string/unit_current"
         android:textColor="@color/color_main"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/tvCount"
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="Tìm kiếm: "
+            android:text="@string/hint_search"
             android:textColorHint="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -122,8 +122,9 @@
             android:layout_height="50dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/raleway_regular"
-            android:hint="Nhập từ khoá tìm kiếm"
+            android:hint="@string/hint_text_search"
             android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:paddingStart="80dp"
             android:paddingEnd="20dp"
@@ -158,13 +159,27 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutSearch"
+        tools:itemCount="10"
         tools:listitem="@layout/item_transactions" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/empty_transactions"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutSearch" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddTransactions"
