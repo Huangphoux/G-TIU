@@ -2,6 +2,7 @@ package com.example.g_tiu.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -22,9 +23,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static final int TYPE_ITEM = 1;
 
     private List<Category> categories;
+    private OnCategoryListener onCategoryListener;
+    private final boolean isShowBudget;
 
     public CategoryAdapter(List<Category> categories) {
         this.categories = categories;
+        isShowBudget = true;
+    }
+
+    public CategoryAdapter(
+            List<Category> categories,
+            OnCategoryListener onCategoryListener,
+            boolean isShowBudget
+    ) {
+        this.categories = categories;
+        this.onCategoryListener = onCategoryListener;
+        this.isShowBudget = isShowBudget;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -47,15 +61,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == TYPE_HEADER) {
             return new HeaderCategoryViewHolder(ItemCategoryHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
-        return new CategoryViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new CategoryViewHolder(
+                ItemCategoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                , onCategoryListener
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CategoryViewHolder) {
-            ((CategoryViewHolder) holder).bind(categories.get(position));
+            ((CategoryViewHolder) holder).bind(categories.get(position), isShowBudget);
         } else if (holder instanceof HeaderCategoryViewHolder) {
-            ((HeaderCategoryViewHolder) holder).bind(categories.get(position));
+            ((HeaderCategoryViewHolder) holder).bind(categories.get(position), isShowBudget);
         }
     }
 
@@ -66,18 +83,31 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final ItemCategoryBinding binding;
+        private final OnCategoryListener onCategoryListener;
 
-        CategoryViewHolder(ItemCategoryBinding binding) {
+        CategoryViewHolder(ItemCategoryBinding binding, OnCategoryListener onCategoryListener) {
             super(binding.getRoot());
             this.binding = binding;
+            this.onCategoryListener = onCategoryListener;
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(Category category) {
+        public void bind(Category category, boolean isShowBudget) {
             binding.tvName.setText(category.getName());
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
             String formatted = format.format(category.getBudget());
             binding.tvBudget.setText("0/" + formatted);
+            if (isShowBudget) {
+                binding.layoutBudget.setVisibility(View.VISIBLE);
+            } else {
+                binding.layoutBudget.setVisibility(View.GONE);
+            }
+
+            binding.getRoot().setOnClickListener(v -> {
+                if (onCategoryListener != null) {
+                    onCategoryListener.onClickItemCategory(category);
+                }
+            });
         }
     }
 
@@ -90,9 +120,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(Category category) {
+        public void bind(Category category, boolean isShowBudget) {
             switch (category.getName()) {
-                case "expenses":
+                case "expense":
                     binding.ivIcon.setImageResource(R.drawable.icons_expenses);
                     binding.tvName.setText("chi tiêu");
                     break;
@@ -108,6 +138,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
             String formatted = format.format(category.getBudget());
             binding.tvTotal.setText("0/" + formatted);
+
+            if (isShowBudget) {
+                binding.tvTotal.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvTotal.setVisibility(View.GONE);
+            }
         }
+    }
+
+    public interface OnCategoryListener {
+        void onClickItemCategory(Category category);
     }
 }

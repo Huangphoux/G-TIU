@@ -1,14 +1,13 @@
 package com.example.g_tiu.ui.category;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.g_tiu.db_helper.CategoryDBHelper;
+import com.example.g_tiu.db_helper.GTiuDBHelper;
 import com.example.g_tiu.item.Category;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.concurrent.Executors;
 
 public class CategoryViewModel extends ViewModel {
 
-    private CategoryDBHelper dbHelper;
+    private GTiuDBHelper dbHelper;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private final MutableLiveData<Boolean> insertResult = new MutableLiveData<>();
@@ -32,7 +31,7 @@ public class CategoryViewModel extends ViewModel {
     }
 
     public void init(Application application) {
-        dbHelper = new CategoryDBHelper(application.getApplicationContext());
+        dbHelper = new GTiuDBHelper(application.getApplicationContext());
     }
 
     public void insertCategory(Category category) {

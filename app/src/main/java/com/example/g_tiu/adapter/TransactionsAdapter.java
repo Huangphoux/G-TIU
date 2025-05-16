@@ -1,16 +1,24 @@
 package com.example.g_tiu.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.g_tiu.R;
 import com.example.g_tiu.databinding.ItemTransactionsBinding;
 import com.example.g_tiu.item.Transactions;
 
+import java.text.NumberFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.TransactionsViewHolder> {
     private final OnClickTransaction onClickTransaction;
@@ -36,7 +44,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TransactionsViewHolder holder, int position) {
-        holder.bind(transactions.get(position));
+        Transactions prevTransactions = null;
+        if (position > 0) {
+            prevTransactions = transactions.get(position - 1);
+        }
+        holder.bind(transactions.get(position), prevTransactions);
     }
 
     @Override
@@ -58,16 +70,79 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             this.onClickTransaction = onClickTransaction;
         }
 
-        public void bind(Transactions transactions) {
-            binding.tvCategoryName.setText(transactions.getCategory().getName());
-            // binding.tvTime.setText(transactions.getTime());
-            binding.tvMoney.setText(String.valueOf(transactions.getAmount()));
+        private String convertToVietnameseDate(String inputDate) {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(inputDate, inputFormatter);
 
-            binding.getRoot().setOnClickListener(v -> {
-                if (onClickTransaction != null) {
-                    onClickTransaction.onClick(transactions);
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            String sttOfWeeks = getVietnameseDayOfWeek(dayOfWeek);
+
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dateFormatted = date.format(outputFormatter);
+
+            return sttOfWeeks + ", " + dateFormatted;
+        }
+
+        private static String getVietnameseDayOfWeek(DayOfWeek day) {
+            switch (day) {
+                case MONDAY:
+                    return "Thứ 2";
+                case TUESDAY:
+                    return "Thứ 3";
+                case WEDNESDAY:
+                    return "Thứ 4";
+                case THURSDAY:
+                    return "Thứ 5";
+                case FRIDAY:
+                    return "Thứ 6";
+                case SATURDAY:
+                    return "Thứ 7";
+                case SUNDAY:
+                    return "Chủ nhật";
+                default:
+                    return "";
+            }
+        }
+
+        public void bind(Transactions transactions, Transactions prevTransactions) {
+            binding.tvCategoryName.setText(transactions.getCategory().getName());
+            try {
+                String formatted = NumberFormat.getInstance(Locale.US).format(transactions.getAmount());
+                binding.tvMoney.setText(formatted);
+            } catch (NumberFormatException e) {
+                binding.tvMoney.setText("0");
+            }
+
+
+            if (prevTransactions == null) {
+                binding.tvTime.setVisibility(View.VISIBLE);
+                binding.tvTime.setText(convertToVietnameseDate(transactions.getDate()));
+            } else {
+                if (!prevTransactions.getDate().equals(transactions.getDate())) {
+                    binding.tvTime.setVisibility(View.VISIBLE);
+                    binding.tvTime.setText(convertToVietnameseDate(transactions.getDate()));
+                } else {
+                    binding.tvTime.setVisibility(View.GONE);
                 }
-            });
+                switch (transactions.getCategory().getType().toLowerCase(Locale.ROOT)) {
+                    case "expense":
+                        binding.ivCategoryType.setImageResource(R.drawable.icons_expenses);
+                        break;
+                    case "income":
+                        binding.ivCategoryType.setImageResource(R.drawable.icons_income);
+                        break;
+                    case "saving":
+                        binding.ivCategoryType.setImageResource(R.drawable.icons_saving);
+                        break;
+                }
+                binding.tvMoney.setText(String.valueOf(transactions.getAmount()));
+
+                binding.getRoot().setOnClickListener(v -> {
+                    if (onClickTransaction != null) {
+                        onClickTransaction.onClick(transactions);
+                    }
+                });
+            }
         }
     }
 }

@@ -1,15 +1,15 @@
 package com.example.g_tiu.item;
 
 public class Transactions {
-    private int id;
+    private long id;
     private String date;
-    private double amount;
+    private long amount;
     private int categoryId;
     private String note;
 
     private Category category;
 
-    public Transactions(int id, String date, double amount, int categoryId, String note) {
+    public Transactions(int id, String date, long amount, int categoryId, String note) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -17,7 +17,14 @@ public class Transactions {
         this.note = note;
     }
 
-    public Transactions(int id, String date, double amount, int categoryId, String note, Category category) {
+    public Transactions(String date, long amount, int categoryId, String note) {
+        this.date = date;
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.note = note;
+    }
+
+    public Transactions(int id, String date, long amount, int categoryId, String note, Category category) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -29,11 +36,11 @@ public class Transactions {
     public Transactions() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,11 +52,11 @@ public class Transactions {
         this.date = date;
     }
 
-    public double getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 

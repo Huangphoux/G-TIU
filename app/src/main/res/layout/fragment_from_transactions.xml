@@ -114,17 +114,20 @@
             android:paddingHorizontal="10dp">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/layoutSelectCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="10dp"
                 android:text="---Chọn danh mục---"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
+                android:id="@+id/layoutCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingVertical="5dp">
+                android:paddingVertical="5dp"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -209,7 +212,7 @@
                 app:tint="@color/color_main" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvMonthYear"
+                android:id="@+id/tvDayMonthYear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
