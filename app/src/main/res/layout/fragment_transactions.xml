@@ -26,6 +26,7 @@
         android:layout_marginStart="20dp"
         android:padding="5dp"
         android:scaleType="centerCrop"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/tvMonthYear"
         app:layout_constraintStart_toEndOf="@id/tvMonthYear"
         app:layout_constraintTop_toTopOf="@id/tvMonthYear"

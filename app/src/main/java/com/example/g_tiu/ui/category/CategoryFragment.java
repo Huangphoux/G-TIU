@@ -1,8 +1,12 @@
 package com.example.g_tiu.ui.category;
 
+import static androidx.navigation.Navigation.findNavController;
+
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,11 +26,13 @@ import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.CategoryAdapter;
 import com.example.g_tiu.databinding.FragmentCategoryBinding;
 import com.example.g_tiu.item.Category;
+import com.example.g_tiu.item.Transactions;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.time.LocalDate;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class CategoryFragment extends Fragment {
@@ -33,7 +40,6 @@ public class CategoryFragment extends Fragment {
     private FragmentCategoryBinding binding;
     private CategoryAdapter adapter;
     private List<Category> categories;
-    private LocalDate currentDate = LocalDate.now();
 
     private CategoryViewModel viewModel;
 
@@ -47,10 +53,11 @@ public class CategoryFragment extends Fragment {
     }
 
     private void updateMonthYearDisplay() {
-        String monthOfYear = "Tháng " + currentDate.getMonthValue() + ", " + currentDate.getYear();
+        String monthOfYear = "Tháng " + viewModel.currentDate.getMonthValue() + ", " + viewModel.currentDate.getYear();
         binding.tvMonthYear.setText(monthOfYear);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -58,12 +65,48 @@ public class CategoryFragment extends Fragment {
         updateMonthYearDisplay();
 
         binding.ivNext.setOnClickListener(v -> {
-            currentDate = currentDate.plusMonths(1);
+            viewModel.currentDate = viewModel.currentDate.plusMonths(1);
             updateMonthYearDisplay();
+            for (Category category : categories) {
+                category.setActual(0);
+            }
+            viewModel.getAllTransactions();
         });
         binding.ivPrev.setOnClickListener(v -> {
-            currentDate = currentDate.minusMonths(1);
+            viewModel.currentDate = viewModel.currentDate.minusMonths(1);
             updateMonthYearDisplay();
+            for (Category category : categories) {
+                category.setActual(0);
+            }
+            viewModel.getAllTransactions();
+        });
+
+
+        viewModel.getTransactionsLiveData().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) return;
+            long totalExpenses = 0;
+            long totalIncome = 0;
+            for (Transactions transactions : result) {
+                if (transactions.getCategory().getType().equalsIgnoreCase("expense")) {
+                    totalExpenses += transactions.getAmount();
+                } else if (transactions.getCategory().getType().equalsIgnoreCase("income")) {
+                    totalIncome += transactions.getAmount();
+                }
+
+                for (Category category : categories) {
+                    if (category.getId() == transactions.getCategoryId()) {
+                        category.setActual(category.getActual() + transactions.getAmount());
+                    }
+                }
+            }
+            adapter.notifyDataSetChanged();
+            try {
+                long parsed = totalIncome - totalExpenses;
+                String formatted = NumberFormat.getInstance(Locale.US).format(parsed);
+                binding.tvCount.setText(formatted);
+            } catch (NumberFormatException e) {
+                Log.e("GT456_x", "Error: " + e);
+            }
         });
 
         viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), result -> {
@@ -107,7 +150,24 @@ public class CategoryFragment extends Fragment {
         categories.add(new Category(-1, "income", true));
         categories.add(new Category(-1, "saving", true));
 
-        adapter = new CategoryAdapter(categories);
+        adapter = new CategoryAdapter(categories, new CategoryAdapter.OnCategoryListener() {
+            @Override
+            public void onClickItemCategory(Category category) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("category", category);
+                findNavController(view).navigate(R.id.action_navigation_category_to_navigation_from_transactions, bundle);
+                ((MainActivity) requireActivity()).hideMenu();
+            }
+
+            @Override
+            public void onLongClickItemCategory(Category category) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("category", category);
+
+                ((MainActivity) requireActivity()).hideMenu();
+                findNavController(view).navigate(R.id.action_navigation_category_to_navigation_add_category, bundle);
+            }
+        });
         viewModel.getAll();
 
         swipeToRemove();
@@ -118,7 +178,7 @@ public class CategoryFragment extends Fragment {
 
         binding.fabAddCategory.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).hideMenu();
-            Navigation.findNavController(view).navigate(R.id.action_navigation_category_to_navigation_add_category);
+            findNavController(view).navigate(R.id.action_navigation_category_to_navigation_add_category);
         });
     }
 

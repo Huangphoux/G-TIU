@@ -23,19 +23,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static final int TYPE_ITEM = 1;
 
     private List<Category> categories;
-    private OnCategoryListener onCategoryListener;
+    private final OnCategoryListener onCategoryListener;
     private final boolean isShowBudget;
 
-    public CategoryAdapter(List<Category> categories) {
+    public CategoryAdapter(List<Category> categories, OnCategoryListener onCategoryListener) {
         this.categories = categories;
+        this.onCategoryListener = onCategoryListener;
         isShowBudget = true;
     }
 
-    public CategoryAdapter(
-            List<Category> categories,
-            OnCategoryListener onCategoryListener,
-            boolean isShowBudget
-    ) {
+    public CategoryAdapter(List<Category> categories, OnCategoryListener onCategoryListener, boolean isShowBudget) {
         this.categories = categories;
         this.onCategoryListener = onCategoryListener;
         this.isShowBudget = isShowBudget;
@@ -61,10 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (viewType == TYPE_HEADER) {
             return new HeaderCategoryViewHolder(ItemCategoryHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
-        return new CategoryViewHolder(
-                ItemCategoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-                , onCategoryListener
-        );
+        return new CategoryViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false), onCategoryListener);
     }
 
     @Override
@@ -96,7 +90,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.tvName.setText(category.getName());
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
             String formatted = format.format(category.getBudget());
-            binding.tvBudget.setText("0/" + formatted);
+            binding.tvBudget.setText(format.format(category.getActual()) + "/" + formatted);
             if (isShowBudget) {
                 binding.layoutBudget.setVisibility(View.VISIBLE);
             } else {
@@ -107,6 +101,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (onCategoryListener != null) {
                     onCategoryListener.onClickItemCategory(category);
                 }
+            });
+            binding.getRoot().setOnLongClickListener(view -> {
+                if (onCategoryListener != null) {
+                    onCategoryListener.onLongClickItemCategory(category);
+                }
+                return false;
             });
         }
     }
@@ -137,17 +137,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
             String formatted = format.format(category.getBudget());
-            binding.tvTotal.setText("0/" + formatted);
 
-            if (isShowBudget) {
-                binding.tvTotal.setVisibility(View.VISIBLE);
-            } else {
-                binding.tvTotal.setVisibility(View.GONE);
-            }
+//            binding.tvTotal.setText(format.format(category.getActual()) + "/" + formatted);
+//
+//            if (isShowBudget) {
+//                binding.tvTotal.setVisibility(View.VISIBLE);
+//            } else {
+//                binding.tvTotal.setVisibility(View.GONE);
+//            }
         }
     }
 
     public interface OnCategoryListener {
         void onClickItemCategory(Category category);
+
+        void onLongClickItemCategory(Category category);
     }
 }

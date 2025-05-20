@@ -25,6 +25,7 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -86,6 +87,7 @@
         android:elevation="10dp"
         android:text="@string/title_chiTieu"
         android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/buttonIncome"
         app:layout_constraintHorizontal_bias="0.5"
@@ -103,6 +105,7 @@
         android:elevation="10dp"
         android:text="@string/title_thuNhap"
         android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toStartOf="@+id/buttonSaving"
         app:layout_constraintHorizontal_bias="0.5"
@@ -120,6 +123,7 @@
         android:elevation="10dp"
         android:text="@string/title_tietKiem"
         android:textColor="@android:color/primary_text_light"
+        android:textSize="12sp"
         app:layout_constraintDimensionRatio="1.5:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

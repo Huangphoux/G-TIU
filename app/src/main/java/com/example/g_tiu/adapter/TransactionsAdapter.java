@@ -113,7 +113,22 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
                 binding.tvMoney.setText("0");
             }
 
-
+            switch (transactions.getCategory().getType().toLowerCase(Locale.ROOT)) {
+                case "expense":
+                    binding.ivCategoryType.setImageResource(R.drawable.icons_expenses);
+                    break;
+                case "income":
+                    binding.ivCategoryType.setImageResource(R.drawable.icons_income);
+                    break;
+                case "saving":
+                    binding.ivCategoryType.setImageResource(R.drawable.icons_saving);
+                    break;
+            }
+            binding.getRoot().setOnClickListener(v -> {
+                if (onClickTransaction != null) {
+                    onClickTransaction.onClick(transactions);
+                }
+            });
             if (prevTransactions == null) {
                 binding.tvTime.setVisibility(View.VISIBLE);
                 binding.tvTime.setText(convertToVietnameseDate(transactions.getDate()));
@@ -124,24 +139,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
                 } else {
                     binding.tvTime.setVisibility(View.GONE);
                 }
-                switch (transactions.getCategory().getType().toLowerCase(Locale.ROOT)) {
-                    case "expense":
-                        binding.ivCategoryType.setImageResource(R.drawable.icons_expenses);
-                        break;
-                    case "income":
-                        binding.ivCategoryType.setImageResource(R.drawable.icons_income);
-                        break;
-                    case "saving":
-                        binding.ivCategoryType.setImageResource(R.drawable.icons_saving);
-                        break;
-                }
-                binding.tvMoney.setText(String.valueOf(transactions.getAmount()));
-
-                binding.getRoot().setOnClickListener(v -> {
-                    if (onClickTransaction != null) {
-                        onClickTransaction.onClick(transactions);
-                    }
-                });
             }
         }
     }

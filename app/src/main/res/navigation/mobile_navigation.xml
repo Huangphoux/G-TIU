@@ -13,19 +13,26 @@
         <action
             android:id="@+id/action_navigation_category_to_navigation_add_category"
             app:destination="@id/navigation_add_category" />
+        <action
+            android:id="@+id/action_navigation_category_to_navigation_from_transactions"
+            app:destination="@id/navigation_from_transactions" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_add_category"
         android:name="com.example.g_tiu.ui.category.AddCategoryFragment"
         android:label="Thêm phân loại"
-        tools:layout="@layout/fragment_add_category" />
+        tools:layout="@layout/fragment_add_category">
+        <argument
+            android:name="category"
+            app:argType="com.example.g_tiu.item.Category" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_transactions"
         android:name="com.example.g_tiu.ui.transactions.TransactionsFragment"
         android:label="@string/title_giaoDich"
-        tools:layout="@layout/fragment_transactions" >
+        tools:layout="@layout/fragment_transactions">
         <action
             android:id="@+id/action_navigation_transactions_to_navigation_from_transactions"
             app:destination="@id/navigation_from_transactions" />
@@ -35,5 +42,10 @@
         android:id="@+id/navigation_from_transactions"
         android:name="com.example.g_tiu.ui.transactions.FromTransactionsFragment"
         android:label="Thêm giao dịch"
-        tools:layout="@layout/fragment_from_transactions" />
+        tools:layout="@layout/fragment_from_transactions">
+
+        <argument
+            android:name="category"
+            app:argType="com.example.g_tiu.item.Category" />
+    </fragment>
 </navigation>

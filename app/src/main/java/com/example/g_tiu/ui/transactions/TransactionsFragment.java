@@ -17,12 +17,15 @@ import com.example.g_tiu.MainActivity;
 import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.TransactionsAdapter;
 import com.example.g_tiu.databinding.FragmentTransactionsBinding;
+import com.example.g_tiu.helper.TransactionSorter;
+import com.example.g_tiu.item.Category;
 import com.example.g_tiu.item.Transactions;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TransactionsFragment extends Fragment implements TransactionsAdapter.OnClickTransaction {
 
@@ -63,13 +66,14 @@ public class TransactionsFragment extends Fragment implements TransactionsAdapte
                 binding.tvEmpty.setVisibility(View.VISIBLE);
                 binding.recyclerView.setVisibility(View.GONE);
             } else {
+                TransactionSorter.sortTransactions(result);
                 binding.tvEmpty.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
                 binding.recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                 binding.recyclerView.setAdapter(new TransactionsAdapter(result, this));
-
-                calTotal(result);
             }
+
+            calTotal(result);
         });
         fetchData();
     }

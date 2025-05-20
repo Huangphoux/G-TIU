@@ -18,7 +18,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.g_tiu.MainActivity;
 import com.example.g_tiu.R;
+import com.example.g_tiu.adapter.CategoryAdapter;
 import com.example.g_tiu.databinding.FragmentFromTransactionsBinding;
+import com.example.g_tiu.item.Category;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -43,15 +45,26 @@ public class FromTransactionsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments() != null && getArguments().containsKey("category")) {
+            viewModel.setCategory((Category) requireArguments().getSerializable("category"));
+        }
         binding.ivBack.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).showMenu();
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
         binding.cardViewCategory.setOnClickListener(v -> {
             CategoryBottomSheet categoryBottomSheet = new CategoryBottomSheet();
-            categoryBottomSheet.setOnCategoryListener(category -> {
-                viewModel.setCategory(category);
-                categoryBottomSheet.dismiss();
+            categoryBottomSheet.setOnCategoryListener(new CategoryAdapter.OnCategoryListener() {
+                @Override
+                public void onClickItemCategory(Category category) {
+                    viewModel.setCategory(category);
+                    categoryBottomSheet.dismiss();
+                }
+
+                @Override
+                public void onLongClickItemCategory(Category category) {
+
+                }
             });
             categoryBottomSheet.show(getChildFragmentManager(), "CategoryBottomSheet");
         });

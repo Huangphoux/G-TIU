@@ -48,7 +48,8 @@
             android:includeFontPadding="false"
             android:paddingHorizontal="10dp"
             android:text="(10.000.000 / 20.000.000)"
-            android:textColor="@color/color_main" />
+            android:textColor="@color/color_main"
+            android:visibility="gone" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <View
