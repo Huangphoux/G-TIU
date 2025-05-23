@@ -1,5 +1,7 @@
 package com.example.g_tiu.ui.transactions;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -51,6 +53,9 @@ public class FromTransactionsFragment extends Fragment {
         binding.ivBack.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).showMenu();
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
+        binding.cardViewKeyWord.setOnClickListener(v -> {
+            findNavController(view).navigate(R.id.action_navigation_from_transactions_to_navigation_keyword);
         });
         binding.cardViewCategory.setOnClickListener(v -> {
             CategoryBottomSheet categoryBottomSheet = new CategoryBottomSheet();

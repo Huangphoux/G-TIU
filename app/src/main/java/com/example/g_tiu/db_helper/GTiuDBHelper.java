@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.g_tiu.item.Category;
+import com.example.g_tiu.item.Keyword;
 import com.example.g_tiu.item.Transactions;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
     public static final String COL_TRANSACTION_CATEGORY_ID = "col_transaction_category_id";
     public static final String COL_TRANSACTION_NOTE = "col_transaction_note";
     public static final String COL_TRANSACTION_CREATE_AT = "col_transaction_create_at";
+
+    public static final String TABLE_KEYWORD = "tb_keyword";
+    public static final String COL_KEYWORD_ID = "col_keyword_id";
+    public static final String COL_KEYWORD_NAME = "col_keyword_name";
 
     public GTiuDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,12 +60,18 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + COL_TRANSACTION_CATEGORY_ID + ") REFERENCES " +
                 TABLE_CATEGORY + "(" + COL_ID + "))";
         db.execSQL(createTransactionsTable);
+
+        String createKeywordTable = "CREATE TABLE " + TABLE_KEYWORD + "(" +
+                COL_KEYWORD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COL_KEYWORD_NAME + " TEXT)";
+        db.execSQL(createKeywordTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_KEYWORD);
         onCreate(db);
     }
 
@@ -210,4 +221,45 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         cursor.close();
         return null;
     }
+
+    // region -> keyword
+
+    public ArrayList<Keyword> getAllKeyWords() {
+        ArrayList<Keyword> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_KEYWORD, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_KEYWORD_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_KEYWORD_NAME));
+                list.add(new Keyword(id, name));
+            }
+            while (cursor.moveToNext());
+
+            cursor.close();
+            return list;
+        }
+        return null;
+    }
+
+    public void addKeyword(String name) {
+        if (checkKeywordName(name)) return;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_KEYWORD_NAME, name);
+        db.insert(TABLE_KEYWORD, null, values);
+    }
+
+    private boolean checkKeywordName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_KEYWORD + " WHERE " + COL_KEYWORD_NAME + "=?", new String[]{name});
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        }
+        cursor.close();
+        return false;
+    }
+
+    // endregion
 }

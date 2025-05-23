@@ -47,5 +47,13 @@
         <argument
             android:name="category"
             app:argType="com.example.g_tiu.item.Category" />
+        <action
+            android:id="@+id/action_navigation_from_transactions_to_navigation_keyword"
+            app:destination="@id/navigation_keyword" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_keyword"
+        android:name="com.example.g_tiu.ui.keyword.KeyFragment"
+        tools:layout="@layout/fragment_key" />
 </navigation>
