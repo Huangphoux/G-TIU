@@ -47,4 +47,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(libs.flexbox)
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
 }

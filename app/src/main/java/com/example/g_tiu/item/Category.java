@@ -8,6 +8,8 @@ public class Category implements Serializable {
     private boolean isHeader;
     private String type;
     private long budget;
+    private String hex;
+    private int icon;
     private long actual;
 
     public Category(int id, String name, boolean isHeader) {
@@ -44,6 +46,16 @@ public class Category implements Serializable {
         this.name = name;
         this.type = type;
         this.budget = budget;
+    }
+
+    public Category(int id, String name, boolean isHeader, String type, long budget, String hex, int icon) {
+        this.id = id;
+        this.name = name;
+        this.isHeader = isHeader;
+        this.type = type;
+        this.budget = budget;
+        this.hex = hex;
+        this.icon = icon;
     }
 
     public long getBudget() {
@@ -95,5 +107,21 @@ public class Category implements Serializable {
 
     public void setActual(long actual) {
         this.actual = actual;
+    }
+
+    public String getHex() {
+        return hex;
+    }
+
+    public void setHex(String hex) {
+        this.hex = hex;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

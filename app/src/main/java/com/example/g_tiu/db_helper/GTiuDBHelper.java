@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 import com.example.g_tiu.item.Category;
 import com.example.g_tiu.item.Keyword;
@@ -15,12 +16,14 @@ import java.util.ArrayList;
 public class GTiuDBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "g-tiu.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_CATEGORY = "tb_category";
     public static final String COL_ID = "col_id";
     public static final String COL_NAME = "col_name";
     public static final String COL_TYPE = "col_type";
+    public static final String COL_COLOR = "col_color";
+    public static final String COL_ICON = "col_icon";
     public static final String COL_BUDGET = "col_budget";
 
     public static final String TABLE_TRANSACTIONS = "tb_transactions";
@@ -28,6 +31,7 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
     public static final String COL_TRANSACTION_DATE = "col_transaction_date";
     public static final String COL_TRANSACTION_AMOUNT = "col_transaction_amount";
     public static final String COL_TRANSACTION_CATEGORY_ID = "col_transaction_category_id";
+    public static final String COL_TRANSACTION_KEYWORD = "col_transaction_keyword";
     public static final String COL_TRANSACTION_NOTE = "col_transaction_note";
     public static final String COL_TRANSACTION_CREATE_AT = "col_transaction_create_at";
 
@@ -47,6 +51,8 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COL_NAME + " TEXT," +
                 COL_TYPE + " TEXT," +
+                COL_COLOR + " TEXT," +
+                COL_ICON + " INTEGER," +
                 COL_BUDGET + " REAL)";
         db.execSQL(createCategoryTable);
 
@@ -55,6 +61,7 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                 COL_TRANSACTION_DATE + " TEXT," +
                 COL_TRANSACTION_AMOUNT + " REAL," +
                 COL_TRANSACTION_CATEGORY_ID + " INTEGER," +
+                COL_TRANSACTION_KEYWORD + " TEXT," +
                 COL_TRANSACTION_NOTE + " TEXT," +
                 COL_TRANSACTION_CREATE_AT + " REAL," +
                 "FOREIGN KEY (" + COL_TRANSACTION_CATEGORY_ID + ") REFERENCES " +
@@ -81,6 +88,8 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
 
         values.put(COL_NAME, category.getName());
         values.put(COL_TYPE, category.getType());
+        values.put(COL_COLOR, category.getHex());
+        values.put(COL_ICON, category.getIcon());
         values.put(COL_BUDGET, category.getBudget());
 
         long result = db.insert(TABLE_CATEGORY, null, values);
@@ -95,6 +104,7 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         values.put(COL_TRANSACTION_AMOUNT, transactions.getAmount());
         values.put(COL_TRANSACTION_CATEGORY_ID, transactions.getCategoryId());
         values.put(COL_TRANSACTION_NOTE, transactions.getNote());
+        values.put(COL_TRANSACTION_KEYWORD, transactions.getKeys());
         values.put(COL_TRANSACTION_CREATE_AT, transactions.getCreateTime());
 
         long result = db.insert(TABLE_TRANSACTIONS, null, values);
@@ -108,6 +118,8 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         values.put(COL_NAME, category.getName());
         values.put(COL_TYPE, category.getType());
         values.put(COL_BUDGET, category.getBudget());
+        values.put(COL_COLOR, category.getHex());
+        values.put(COL_ICON, category.getIcon());
 
         int result = db.update(TABLE_CATEGORY, values, COL_ID + "=?", new String[]{String.valueOf(category.getId())});
         return result > 0;
@@ -120,6 +132,7 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         values.put(COL_TRANSACTION_DATE, transactions.getDate());
         values.put(COL_TRANSACTION_AMOUNT, transactions.getAmount());
         values.put(COL_TRANSACTION_CATEGORY_ID, transactions.getCategoryId());
+        values.put(COL_TRANSACTION_KEYWORD, transactions.getKeys());
         values.put(COL_TRANSACTION_NOTE, transactions.getNote());
 
         int result = db.update(TABLE_TRANSACTIONS, values, COL_TRANSACTION_ID + "=?", new String[]{String.valueOf(transactions.getId())});
@@ -146,9 +159,11 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow(COL_TYPE));
+                String hex = cursor.getString(cursor.getColumnIndexOrThrow(COL_COLOR));
+                int icon = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ICON));
                 long budget = cursor.getLong(cursor.getColumnIndexOrThrow(COL_BUDGET));
 
-                list.add(new Category(id, name, type, budget));
+                list.add(new Category(id, name, false, type, budget, hex, icon));
             } while (cursor.moveToNext());
         }
 
@@ -170,10 +185,63 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                 long amount = cursor.getLong(cursor.getColumnIndexOrThrow(COL_TRANSACTION_AMOUNT));
                 int categoryId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TRANSACTION_CATEGORY_ID));
                 String note = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_NOTE));
+                String keys = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_KEYWORD));
                 long createAt = cursor.getLong(cursor.getColumnIndexOrThrow(COL_TRANSACTION_CREATE_AT));
 
                 Category category = getOneById(categoryId);
-                list.add(new Transactions(id, date, amount, categoryId, note, createAt, category));
+                list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<Transactions> getAllTransactions(String datePrefix, String keyword, String keySearch) {
+        String mSearch = "";
+        if (!TextUtils.isEmpty(keySearch)) {
+            mSearch = keySearch;
+        }
+        ArrayList<Transactions> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM tb_transactions WHERE col_transaction_date LIKE ?",
+                new String[]{datePrefix + "%"});
+
+        if (cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TRANSACTION_ID));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_DATE));
+                long amount = cursor.getLong(cursor.getColumnIndexOrThrow(COL_TRANSACTION_AMOUNT));
+                int categoryId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TRANSACTION_CATEGORY_ID));
+                String note = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_NOTE));
+                if (TextUtils.isEmpty(note)) {
+                    note = "";
+                }
+                String keys = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_KEYWORD));
+                if (TextUtils.isEmpty(keys)) {
+                    keys = "";
+                }
+                long createAt = cursor.getLong(cursor.getColumnIndexOrThrow(COL_TRANSACTION_CREATE_AT));
+                Category category = getOneById(categoryId);
+                String[] keySplit = keys.split(",");
+
+                boolean isMatchKeySearch = note.toLowerCase().contains(mSearch.toLowerCase())
+                        || category.getName().toLowerCase().contains(mSearch.toLowerCase());
+
+                if (keySplit.length == 0) {
+                    if (isMatchKeySearch) {
+                        list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
+                    }
+                } else {
+                    for (String key : keySplit) {
+                        if (!isMatchKeySearch) break;
+
+                        if (keyword.isEmpty() || key.equals(keyword)) {
+                            list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
+                        }
+                    }
+                }
             } while (cursor.moveToNext());
         }
 

@@ -26,6 +26,15 @@
         <argument
             android:name="category"
             app:argType="com.example.g_tiu.item.Category" />
+        <action
+            android:id="@+id/action_navigation_add_category_to_navigation_tag"
+            app:destination="@id/navigation_tag" />
+        <action
+            android:id="@+id/action_navigation_add_category_to_navigation_color"
+            app:destination="@id/navigation_color" />
+        <action
+            android:id="@+id/action_navigation_add_category_to_navigation_icon"
+            app:destination="@id/navigation_icon" />
     </fragment>
 
     <fragment
@@ -36,6 +45,9 @@
         <action
             android:id="@+id/action_navigation_transactions_to_navigation_from_transactions"
             app:destination="@id/navigation_from_transactions" />
+        <action
+            android:id="@+id/action_navigation_transactions_to_navigation_tag"
+            app:destination="@id/navigation_tag" />
     </fragment>
 
     <fragment
@@ -50,10 +62,33 @@
         <action
             android:id="@+id/action_navigation_from_transactions_to_navigation_keyword"
             app:destination="@id/navigation_keyword" />
+        <action
+            android:id="@+id/action_navigation_from_transactions_to_navigation_tag"
+            app:destination="@id/navigation_tag" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_keyword"
         android:name="com.example.g_tiu.ui.keyword.KeyFragment"
         tools:layout="@layout/fragment_key" />
+
+    <fragment
+        android:id="@+id/navigation_tag"
+        android:name="com.example.g_tiu.ui.tag.TagFragment"
+        tools:layout="@layout/fragment_tag" />
+
+    <fragment
+        android:id="@+id/navigation_color"
+        android:name="com.example.g_tiu.ui.color.ColorFragment"
+        tools:layout="@layout/fragment_color" />
+
+    <fragment
+        android:id="@+id/navigation_icon"
+        android:name="com.example.g_tiu.ui.icon.IconFragment"
+        tools:layout="@layout/fragment_icon" />
+
+    <fragment
+        android:id="@+id/navigation_chart"
+        android:name="com.example.g_tiu.ui.chart.ChartFragment"
+        tools:layout="@layout/fragment_chart" />
 </navigation>

@@ -53,7 +53,7 @@
     <EditText
         android:id="@+id/edtName"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_margin="20dp"
         android:background="@drawable/bg_input"
         android:ems="10"
@@ -68,68 +68,126 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutIconColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtName">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvIcon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="Biểu tượng"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtName" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_border_category"
+            android:padding="5dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Màu sắc"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtName" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivColor"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_border_category"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/tvIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvIcon"
+            app:layout_constraintTop_toTopOf="@id/tvIcon"
+            app:srcCompat="@drawable/rec_color"
+            app:tint="#FFFFFF" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCategoryType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Kiểu giao dịch"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtName" />
+        app:layout_constraintTop_toBottomOf="@id/layoutIconColor" />
 
     <Button
         android:id="@+id/buttonExpense"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:drawableTop="@drawable/baseline_add_shopping_cart_24"
         android:elevation="10dp"
         android:text="@string/title_chiTieu"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="12sp"
-        app:layout_constraintDimensionRatio="1.5:1"
+        android:textSize="11sp"
+        app:layout_constraintDimensionRatio="1.3:1"
         app:layout_constraintEnd_toStartOf="@+id/buttonIncome"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtName"
-        app:layout_constraintWidth_percent="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
+        app:layout_constraintWidth_percent="0.26" />
 
     <Button
         android:id="@+id/buttonIncome"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:drawableTop="@drawable/baseline_attach_money_24"
         android:elevation="10dp"
         android:text="@string/title_thuNhap"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="12sp"
-        app:layout_constraintDimensionRatio="1.5:1"
+        android:textSize="10sp"
+        app:layout_constraintDimensionRatio="1.3:1"
         app:layout_constraintEnd_toStartOf="@+id/buttonSaving"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonExpense"
-        app:layout_constraintTop_toBottomOf="@+id/edtName"
-        app:layout_constraintWidth_percent="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
+        app:layout_constraintWidth_percent="0.26" />
 
     <Button
         android:id="@+id/buttonSaving"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:drawableTop="@drawable/baseline_bar_chart_24"
         android:elevation="10dp"
         android:text="@string/title_tietKiem"
         android:textColor="@android:color/primary_text_light"
-        android:textSize="12sp"
-        app:layout_constraintDimensionRatio="1.5:1"
+        android:textSize="11sp"
+        app:layout_constraintDimensionRatio="1.3:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonIncome"
-        app:layout_constraintTop_toBottomOf="@+id/edtName"
-        app:layout_constraintWidth_percent="0.3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
+        app:layout_constraintWidth_percent="0.26" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -137,14 +195,14 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:text="Ngân sách hàng tháng"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSaving" />
 
     <EditText
         android:id="@+id/edtBudget"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/bg_input"
@@ -158,4 +216,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSaving" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        android:text="#Tag"
+        android:textSize="14sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtBudget" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivAddTag"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="20dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/tvTag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvTag"
+        app:srcCompat="@drawable/baseline_add_circle_outline_24" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:visibility="invisible"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTag" />
 </androidx.constraintlayout.widget.ConstraintLayout>

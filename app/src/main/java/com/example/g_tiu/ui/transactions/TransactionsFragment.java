@@ -1,6 +1,10 @@
 package com.example.g_tiu.ui.transactions;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,16 +22,17 @@ import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.TransactionsAdapter;
 import com.example.g_tiu.databinding.FragmentTransactionsBinding;
 import com.example.g_tiu.helper.TransactionSorter;
-import com.example.g_tiu.item.Category;
+import com.example.g_tiu.item.Keyword;
 import com.example.g_tiu.item.Transactions;
+import com.example.g_tiu.ui.tag.TagFragment;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
-public class TransactionsFragment extends Fragment implements TransactionsAdapter.OnClickTransaction {
+public class TransactionsFragment extends Fragment
+        implements TransactionsAdapter.OnClickTransaction, TagFragment.OnTagClickListener {
 
     private FragmentTransactionsBinding binding;
     private TransactionsViewModel viewModel;
@@ -49,6 +54,28 @@ public class TransactionsFragment extends Fragment implements TransactionsAdapte
         binding.fabAddTransactions.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).hideMenu();
             Navigation.findNavController(view).navigate(R.id.action_navigation_transactions_to_navigation_from_transactions);
+        });
+        binding.tagMore.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("is_select", true);
+            bundle.putSerializable("on_listener", this);
+            findNavController(view).navigate(R.id.action_navigation_transactions_to_navigation_tag, bundle);
+        });
+        binding.edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                viewModel.applyFilterKeySearch(editable.toString().trim());
+            }
         });
         binding.ivNext.setOnClickListener(v -> {
             currentDate = currentDate.plusMonths(1);
@@ -74,6 +101,21 @@ public class TransactionsFragment extends Fragment implements TransactionsAdapte
             }
 
             calTotal(result);
+        });
+        viewModel.getKeyFilterLiveData().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) {
+                binding.tagText.setVisibility(View.INVISIBLE);
+                binding.tagClose.setVisibility(View.GONE);
+                binding.tagMore.setVisibility(View.VISIBLE);
+            } else {
+                binding.tagText.setVisibility(View.VISIBLE);
+                binding.tagClose.setVisibility(View.VISIBLE);
+                binding.tagMore.setVisibility(View.GONE);
+                binding.tagClose.setOnClickListener(v -> {
+                    viewModel.applyFilterKeyword(null);
+                });
+                binding.tagText.setText(result.getName());
+            };
         });
         fetchData();
     }
@@ -115,5 +157,10 @@ public class TransactionsFragment extends Fragment implements TransactionsAdapte
     @Override
     public void onClick(Transactions transactions) {
 
+    }
+
+    @Override
+    public void onClickListener(Keyword keyword) {
+        viewModel.applyFilterKeyword(keyword);
     }
 }

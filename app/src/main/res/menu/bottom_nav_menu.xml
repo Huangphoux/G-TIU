@@ -12,8 +12,12 @@
         android:title="@string/title_giaoDich" />
 
     <item
-        android:id="@+id/navigation_overview"
-        android:icon="@android:drawable/ic_menu_recent_history"
+        android:id="@+id/navigation_chart"
+        android:icon="@drawable/baseline_pie_chart_24"
         android:title="@string/title_baoCao" />
 
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/title_settings" />
 </menu>

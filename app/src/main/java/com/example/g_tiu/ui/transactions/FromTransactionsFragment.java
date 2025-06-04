@@ -11,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,12 +25,15 @@ import com.example.g_tiu.R;
 import com.example.g_tiu.adapter.CategoryAdapter;
 import com.example.g_tiu.databinding.FragmentFromTransactionsBinding;
 import com.example.g_tiu.item.Category;
+import com.example.g_tiu.item.Keyword;
+import com.example.g_tiu.ui.tag.TagFragment;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
-public class FromTransactionsFragment extends Fragment {
+public class FromTransactionsFragment extends Fragment implements TagFragment.OnTagClickListener {
 
     private FragmentFromTransactionsBinding binding;
     private TransactionsViewModel viewModel;
@@ -55,7 +60,9 @@ public class FromTransactionsFragment extends Fragment {
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
         });
         binding.cardViewKeyWord.setOnClickListener(v -> {
-            findNavController(view).navigate(R.id.action_navigation_from_transactions_to_navigation_keyword);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("on_listener", this);
+            findNavController(view).navigate(R.id.action_navigation_from_transactions_to_navigation_tag, bundle);
         });
         binding.cardViewCategory.setOnClickListener(v -> {
             CategoryBottomSheet categoryBottomSheet = new CategoryBottomSheet();
@@ -171,6 +178,45 @@ public class FromTransactionsFragment extends Fragment {
                 requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
+
+        viewModel.getKeywordLiveData().observe(getViewLifecycleOwner(), result -> {
+            binding.flexboxLayout.setVisibility(View.VISIBLE);
+            binding.tvEmptyKeyword.setVisibility(View.GONE);
+
+            binding.flexboxLayout.removeAllViews();
+            addKeyword(result);
+        });
+    }
+
+    private void addKeyword(List<Keyword> keywords) {
+        for (Keyword key : keywords) {
+            View tagView = LayoutInflater.from(requireContext()).inflate(R.layout.tag_item, binding.flexboxLayout, false);
+
+            TextView textView = tagView.findViewById(R.id.tagText);
+            AppCompatImageView closeButton = tagView.findViewById(R.id.tag_close);
+
+            textView.setText(key.getName());
+
+            closeButton.setOnClickListener(v -> {
+                binding.flexboxLayout.removeView(tagView);
+                viewModel.removeKeyword(key);
+
+                if (binding.flexboxLayout.getChildCount() == 0) {
+                    binding.flexboxLayout.setVisibility(View.GONE);
+                    binding.tvEmptyKeyword.setVisibility(View.VISIBLE);
+                } else {
+                    binding.flexboxLayout.setVisibility(View.VISIBLE);
+                    binding.tvEmptyKeyword.setVisibility(View.GONE);
+                }
+            });
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(8, 8, 8, 8);
+            tagView.setLayoutParams(params);
+
+            binding.flexboxLayout.addView(tagView);
+        }
     }
 
     private void updateMonthYearDisplay() {
@@ -188,5 +234,10 @@ public class FromTransactionsFragment extends Fragment {
     public void onDestroyView() {
         binding = null;
         super.onDestroyView();
+    }
+
+    @Override
+    public void onClickListener(Keyword keyword) {
+        viewModel.addKeyword(keyword);
     }
 }
