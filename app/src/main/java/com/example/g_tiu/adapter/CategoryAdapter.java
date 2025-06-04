@@ -1,6 +1,7 @@
 package com.example.g_tiu.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 binding.layoutBudget.setVisibility(View.GONE);
             }
+            binding.ivIcon.setImageResource(category.getIcon());
+            binding.cardColor.setCardBackgroundColor(ColorStateList.valueOf(android.graphics.Color.parseColor(category.getHex())));
 
             binding.getRoot().setOnClickListener(v -> {
                 if (onCategoryListener != null) {

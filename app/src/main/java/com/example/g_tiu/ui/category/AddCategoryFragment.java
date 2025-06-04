@@ -1,5 +1,7 @@
 package com.example.g_tiu.ui.category;
 
+import static androidx.navigation.Navigation.findNavController;
+
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,11 +24,20 @@ import com.example.g_tiu.MainActivity;
 import com.example.g_tiu.R;
 import com.example.g_tiu.databinding.FragmentAddCategoryBinding;
 import com.example.g_tiu.item.Category;
+import com.example.g_tiu.item.Color;
+import com.example.g_tiu.item.IconModel;
+import com.example.g_tiu.item.Keyword;
+import com.example.g_tiu.ui.color.ColorFragment;
+import com.example.g_tiu.ui.icon.IconFragment;
+import com.example.g_tiu.ui.tag.TagFragment;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
-public class AddCategoryFragment extends Fragment {
+public class AddCategoryFragment extends Fragment
+        implements TagFragment.OnTagClickListener, ColorFragment.OnColorListener,
+        IconFragment.OnIconListener {
 
     private FragmentAddCategoryBinding binding;
     private CategoryViewModel viewModel;
@@ -48,6 +61,31 @@ public class AddCategoryFragment extends Fragment {
         binding.ivBack.setOnClickListener(v -> {
             ((MainActivity) requireActivity()).showMenu();
             requireActivity().getOnBackPressedDispatcher().onBackPressed();
+        });
+        binding.ivAddTag.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("on_listener", this);
+            findNavController(view).navigate(R.id.action_navigation_add_category_to_navigation_tag, bundle);
+        });
+        binding.ivColor.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("on_listener", this);
+            findNavController(view).navigate(R.id.action_navigation_add_category_to_navigation_color, bundle);
+        });
+        binding.ivIcon.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("on_listener", this);
+            findNavController(view).navigate(R.id.action_navigation_add_category_to_navigation_icon, bundle);
+        });
+        viewModel.getKeywordLiveData().observe(getViewLifecycleOwner(), result -> {
+            binding.flexboxLayout.removeAllViews();
+            addKeyword(result);
+        });
+        viewModel.getColorLiveData().observe(getViewLifecycleOwner(), result -> {
+            binding.ivColor.setImageTintList(ColorStateList.valueOf(android.graphics.Color.parseColor(result.getHex())));
+        });
+        viewModel.getIconLiveData().observe(getViewLifecycleOwner(), result -> {
+            binding.ivIcon.setImageResource(result.getId());
         });
         viewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.tvTitle.setText("Sửa phân loại");
@@ -183,5 +221,43 @@ public class AddCategoryFragment extends Fragment {
     public void onDestroyView() {
         binding = null;
         super.onDestroyView();
+    }
+
+    @Override
+    public void onClickListener(Keyword keyword) {
+        viewModel.addKeyword(keyword);
+    }
+
+    private void addKeyword(List<Keyword> keywords) {
+        for (Keyword key : keywords) {
+            View tagView = LayoutInflater.from(requireContext()).inflate(R.layout.tag_item, binding.flexboxLayout, false);
+
+            TextView textView = tagView.findViewById(R.id.tagText);
+            AppCompatImageView closeButton = tagView.findViewById(R.id.tag_close);
+
+            textView.setText(key.getName());
+
+            closeButton.setOnClickListener(v -> {
+                binding.flexboxLayout.removeView(tagView);
+                viewModel.removeKeyword(key);
+            });
+            ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(8, 8, 8, 8);
+            tagView.setLayoutParams(params);
+
+            binding.flexboxLayout.addView(tagView);
+        }
+    }
+
+    @Override
+    public void onColorSelected(Color color) {
+        viewModel.setColor(color);
+    }
+
+    @Override
+    public void onIconSelected(IconModel icon) {
+        viewModel.setIcon(icon);
     }
 }

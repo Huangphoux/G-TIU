@@ -7,7 +7,7 @@ public class Transactions {
     private int categoryId;
     private String note;
     private long createTime;
-
+    private String keys;
     private Category category;
 
     public Transactions(int id, String date, long amount, int categoryId, String note) {
@@ -28,6 +28,17 @@ public class Transactions {
         this.category = category;
     }
 
+    public Transactions(long id, String date, long amount, int categoryId, String note, String keys, long createTime, Category category) {
+        this.id = id;
+        this.date = date;
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.note = note;
+        this.keys = keys;
+        this.createTime = createTime;
+        this.category = category;
+    }
+
     public Transactions(String date, long amount, int categoryId, String note) {
         this.date = date;
         this.amount = amount;
@@ -41,6 +52,17 @@ public class Transactions {
         this.amount = amount;
         this.categoryId = categoryId;
         this.note = note;
+        this.category = category;
+    }
+
+    public Transactions(long id, String date, long amount, int categoryId, String note, long createTime, String keys, Category category) {
+        this.id = id;
+        this.date = date;
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.note = note;
+        this.createTime = createTime;
+        this.keys = keys;
         this.category = category;
     }
 
@@ -101,5 +123,13 @@ public class Transactions {
 
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+    public String getKeys() {
+        return keys;
+    }
+
+    public void setKeys(String keys) {
+        this.keys = keys;
     }
 }

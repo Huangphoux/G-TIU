@@ -49,280 +49,292 @@
         app:srcCompat="@drawable/baseline_check_24"
         app:tint="@color/white" />
 
-    <EditText
-        android:id="@+id/edtAmount"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        android:background="@drawable/bg_input"
-        android:ems="10"
-        android:fontFamily="@font/raleway_regular"
-        android:hint="0"
-        android:importantForAutofill="no"
-        android:includeFontPadding="false"
-        android:inputType="number"
-        android:paddingHorizontal="15dp"
-        android:textColorHint="#C1C1C1"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/raleway_bold"
-        android:includeFontPadding="false"
-        android:text="VNĐ"
-        android:textColor="@color/color_main"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/edtAmount"
-        app:layout_constraintStart_toEndOf="@id/edtAmount"
-        app:layout_constraintTop_toTopOf="@id/edtAmount" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Phân loại giao dịch"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtAmount" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewCategory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHeader">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="10dp">
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edtAmount"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/bg_input"
+                android:ems="10"
+                android:fontFamily="@font/raleway_regular"
+                android:hint="0"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="number"
+                android:paddingHorizontal="15dp"
+                android:textColorHint="#C1C1C1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/layoutSelectCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="10dp"
-                android:text="---Chọn danh mục---"
-                android:visibility="visible" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/raleway_bold"
+                android:includeFontPadding="false"
+                android:text="VNĐ"
+                android:textColor="@color/color_main"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/edtAmount"
+                app:layout_constraintStart_toEndOf="@id/edtAmount"
+                app:layout_constraintTop_toTopOf="@id/edtAmount" />
 
-            <LinearLayout
-                android:id="@+id/layoutCategory"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingVertical="5dp"
-                android:visibility="gone">
+                android:layout_margin="20dp"
+                android:text="Phân loại giao dịch"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edtAmount" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewCategory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeader">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="10dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/layoutSelectCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:text="---Chọn danh mục---"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="5dp"
+                        android:visibility="gone">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginStart="10dp"
+                                android:padding="5dp"
+                                app:srcCompat="@drawable/icons_expenses"
+                                app:tint="@color/color_main" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvCategoryType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/raleway_medium"
+                                android:includeFontPadding="false"
+                                android:text="Chi tiêu"
+                                android:textAllCaps="true"
+                                android:textColor="@color/color_main" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCategoryName"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/raleway_medium"
+                            android:gravity="center_vertical"
+                            android:includeFontPadding="false"
+                            android:text="Ăn uống"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeaderCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Ngày giao dịch"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewCategory" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvHeaderCategory">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="10dp"
-                        android:padding="5dp"
-                        app:srcCompat="@drawable/icons_expenses"
+                        android:id="@+id/ivPrev"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="15dp"
+                        app:srcCompat="@drawable/ic_prev_month"
                         app:tint="@color/color_main" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCategoryType"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvDayMonthYear"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/raleway_medium"
-                        android:includeFontPadding="false"
-                        android:text="Chi tiêu"
-                        android:textAllCaps="true"
-                        android:textColor="@color/color_main" />
+                        android:layout_weight="1"
+                        android:fontFamily="@font/raleway_regular"
+                        android:gravity="center"
+                        android:text="19 tháng 5, 2025"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivNext"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="15dp"
+                        android:rotation="180"
+                        app:layout_constraintBottom_toBottomOf="@id/tvCount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvCount"
+                        app:srcCompat="@drawable/ic_prev_month"
+                        app:tint="@color/color_main" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvCategoryName"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/raleway_medium"
-                    android:gravity="center_vertical"
-                    android:includeFontPadding="false"
-                    android:text="Ăn uống"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvHeaderCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Ngày giao dịch"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewCategory" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="10dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderCategory">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivPrev"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="15dp"
-                app:srcCompat="@drawable/ic_prev_month"
-                app:tint="@color/color_main" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDayMonthYear"
-                android:layout_width="0dp"
+                android:id="@+id/tvKeyword"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/raleway_regular"
-                android:gravity="center"
-                android:text="19 tháng 5, 2025"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_margin="20dp"
+                android:text="Từ khoá"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewDate" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivNext"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="15dp"
-                android:rotation="180"
-                app:layout_constraintBottom_toBottomOf="@id/tvCount"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewKeyWord"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvKeyword"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvCount"
-                app:srcCompat="@drawable/ic_prev_month"
-                app:tint="@color/color_main" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.cardview.widget.CardView>
+                app:layout_constraintTop_toTopOf="@id/tvKeyword"
+                app:srcCompat="@drawable/baseline_add_circle_outline_24">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvKeyword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Từ khoá"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewDate" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    app:srcCompat="@drawable/baseline_add_24"
+                    app:tint="@color/color_main" />
+            </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewKeyWord"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/tvKeyword"
-        app:layout_constraintStart_toEndOf="@id/tvKeyword"
-        app:layout_constraintTop_toTopOf="@id/tvKeyword"
-        app:srcCompat="@drawable/baseline_add_circle_outline_24">
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexboxLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="20dp"
+                app:flexWrap="wrap"
+                app:justifyContent="flex_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewKeyWord" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="6dp"
-            app:srcCompat="@drawable/baseline_add_24"
-            app:tint="@color/color_main" />
-    </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEmptyKeyword"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Không có từ khoá"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvKeyword" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewKeyWords"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvKeyword" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrierKeyWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="flexboxLayout, tvEmptyKeyword" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvEmptyKeyword"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="Không có từ khoá"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvKeyword" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeaderNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Ghi chú"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrierKeyWord" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrierKeyWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="recyclerViewKeyWords, tvEmptyKeyword" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvHeaderNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Ghi chú"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrierKeyWord" />
-
-    <EditText
-        android:id="@+id/edtNote"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:background="@drawable/bg_input"
-        android:ems="10"
-        android:fontFamily="@font/raleway_regular"
-        android:hint="Note"
-        android:importantForAutofill="no"
-        android:includeFontPadding="false"
-        android:inputType="text"
-        android:paddingHorizontal="15dp"
-        android:textColorHint="#C1C1C1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHeaderNote" />
-
+            <EditText
+                android:id="@+id/edtNote"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/bg_input"
+                android:ems="10"
+                android:fontFamily="@font/raleway_regular"
+                android:hint="Note"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:paddingHorizontal="15dp"
+                android:textColorHint="#C1C1C1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeaderNote" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
