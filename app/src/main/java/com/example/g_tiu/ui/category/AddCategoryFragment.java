@@ -85,7 +85,8 @@ public class AddCategoryFragment extends Fragment
             binding.ivColor.setImageTintList(ColorStateList.valueOf(android.graphics.Color.parseColor(result.getHex())));
         });
         viewModel.getIconLiveData().observe(getViewLifecycleOwner(), result -> {
-            binding.ivIcon.setImageResource(result.getId());
+            binding.ivIcon.setImageResource(result.getResId());
+            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.black)));
         });
         viewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.tvTitle.setText("Sửa phân loại");

@@ -12,8 +12,22 @@ public class AppConstants {
     public static List<IconModel> getIcons() {
         ArrayList<IconModel> icons = new ArrayList<>();
 
-        icons.add(new IconModel(R.drawable.icon_things_to_do, "Things To Do"));
-        icons.add(new IconModel(R.drawable.icon_fire_hydrant, "Fire Hydrant"));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_allowance));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_beauty));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_bills));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_business));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_entertainment));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_family));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_food));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_grocery));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_health));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_home));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_interest));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_investment));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_salary));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_shopping));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_study));
+        icons.add(new IconModel(icons.size(), R.drawable.icon_category_transport));
 
         return icons;
     }

@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.g_tiu.R;
 import com.example.g_tiu.databinding.ItemCategoryBinding;
 import com.example.g_tiu.databinding.ItemCategoryHeaderBinding;
+import com.example.g_tiu.helper.AppConstants;
 import com.example.g_tiu.item.Category;
 
 import java.text.NumberFormat;
@@ -97,7 +99,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 binding.layoutBudget.setVisibility(View.GONE);
             }
-            binding.ivIcon.setImageResource(category.getIcon());
+            binding.ivIcon.setImageResource(AppConstants.getIcons().get(category.getIcon()).getResId());
+            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.getRoot().getContext(), R.color.black)));
             binding.cardColor.setCardBackgroundColor(ColorStateList.valueOf(android.graphics.Color.parseColor(category.getHex())));
 
             binding.getRoot().setOnClickListener(v -> {

@@ -50,6 +50,24 @@ public class ChartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        updateMonthYearDisplay();
+        binding.ivNext.setOnClickListener(v -> {
+            viewModel.currentDate = viewModel.currentDate.plusMonths(1);
+            updateMonthYearDisplay();
+            for (Category category : categories) {
+                category.setActual(0);
+            }
+            viewModel.getAll();
+        });
+        binding.ivPrev.setOnClickListener(v -> {
+            viewModel.currentDate = viewModel.currentDate.minusMonths(1);
+            updateMonthYearDisplay();
+            for (Category category : categories) {
+                category.setActual(0);
+            }
+            viewModel.getAll();
+        });
+
         viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result == null || result.isEmpty()) return;
             List<Category> expenseList = result.stream()
@@ -83,6 +101,11 @@ public class ChartFragment extends Fragment {
         });
 
         viewModel.getAll();
+    }
+
+    private void updateMonthYearDisplay() {
+        String monthOfYear = "Tháng " + viewModel.currentDate.getMonthValue() + ", " + viewModel.currentDate.getYear();
+        binding.tvMonthYear.setText(monthOfYear);
     }
 
     private void setupPieChart() {

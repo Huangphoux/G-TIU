@@ -2,11 +2,11 @@ package com.example.g_tiu.item;
 
 public class IconModel {
     private int id;
-    private String name;
+    private int resId;
 
-    public IconModel(int id, String name) {
+    public IconModel(int id, int resId) {
         this.id = id;
-        this.name = name;
+        this.resId = resId;
     }
 
     public int getId() {
@@ -17,11 +17,11 @@ public class IconModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getResId() {
+        return resId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setResId(int resId) {
+        this.resId = resId;
     }
 }

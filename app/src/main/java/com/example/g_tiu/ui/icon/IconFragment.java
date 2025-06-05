@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.g_tiu.R;
@@ -53,7 +54,8 @@ public class IconFragment extends Fragment {
         for (IconModel icon : AppConstants.getIcons()) {
             View colorView = LayoutInflater.from(requireContext()).inflate(R.layout.icon_item, binding.flexboxLayout, false);
             AppCompatImageView ivIcon = colorView.findViewById(R.id.ivIcon);
-            ivIcon.setImageResource(icon.getId());
+            ivIcon.setImageResource(icon.getResId());
+            ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.black)));
 
             colorView.setOnClickListener(v -> {
                 if (onIconListener != null) {
