@@ -81,6 +81,21 @@ public class CategoryFragment extends Fragment {
             viewModel.getAllTransactions();
         });
 
+        viewModel.getDeleteResult().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) return;
+            viewModel.clearDeleteResult();
+            Snackbar snackbar;
+            if (result) {
+                viewModel.getAll();
+                snackbar = Snackbar
+                        .make(binding.recyclerView, "Đã xoá", Snackbar.LENGTH_SHORT);
+            } else {
+                snackbar = Snackbar
+                        .make(binding.recyclerView, "Có lỗi xảy ra", Snackbar.LENGTH_SHORT);
+            }
+            snackbar.setAnchorView(binding.recyclerView);
+            snackbar.show();
+        });
 
         viewModel.getTransactionsLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result == null) return;
@@ -110,7 +125,7 @@ public class CategoryFragment extends Fragment {
         });
 
         viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), result -> {
-            if (result == null || result.isEmpty()) return;
+            if (result == null) return;
             List<Category> expenseList = result.stream()
                     .filter(c -> "expense".equalsIgnoreCase(c.getType()))
                     .collect(Collectors.toList());
@@ -210,10 +225,8 @@ public class CategoryFragment extends Fragment {
                         .setCancelable(false)
                         .setPositiveButton("Có", (dialog, which) -> {
                             viewModel.deleteCategory(deletedItem);
-                            viewModel.getAll();
-
                             Snackbar snackbar = Snackbar
-                                    .make(binding.recyclerView, "Deleted " + deletedItem.getName(), Snackbar.LENGTH_SHORT);
+                                    .make(binding.recyclerView, "Đang xoá" + deletedItem.getName(), Snackbar.LENGTH_SHORT);
                             snackbar.setAnchorView(binding.recyclerView);
 
                             snackbar.show();

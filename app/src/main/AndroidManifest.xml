@@ -13,15 +13,12 @@
         android:theme="@style/Theme.GTIU"
         tools:targetApi="31">
         <activity
-            android:name=".addGiaoDich"
-            android:exported="false" />
-        <activity
-            android:name=".addPhanLoai"
-            android:exported="false" />
+            android:name=".ui.LineChartActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GTIU" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

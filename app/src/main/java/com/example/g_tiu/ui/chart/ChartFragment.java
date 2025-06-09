@@ -1,7 +1,7 @@
 package com.example.g_tiu.ui.chart;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,28 +20,25 @@ import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
-import com.example.g_tiu.R;
 import com.example.g_tiu.databinding.FragmentChartBinding;
 import com.example.g_tiu.item.Category;
 import com.example.g_tiu.item.Transactions;
-import com.example.g_tiu.ui.category.CategoryViewModel;
+import com.example.g_tiu.ui.LineChartActivity;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class ChartFragment extends Fragment {
     private FragmentChartBinding binding;
-    private CategoryViewModel viewModel;
+    private ChartViewModel viewModel;
     private final List<Category> categories = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentChartBinding.inflate(inflater, container, false);
-        viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ChartViewModel.class);
         viewModel.init(requireActivity().getApplication());
         return binding.getRoot();
     }
@@ -54,22 +51,24 @@ public class ChartFragment extends Fragment {
         binding.ivNext.setOnClickListener(v -> {
             viewModel.currentDate = viewModel.currentDate.plusMonths(1);
             updateMonthYearDisplay();
-            for (Category category : categories) {
-                category.setActual(0);
-            }
+            categories.clear();
+            binding.layoutAnyChartView.removeAllViews();
             viewModel.getAll();
         });
         binding.ivPrev.setOnClickListener(v -> {
             viewModel.currentDate = viewModel.currentDate.minusMonths(1);
             updateMonthYearDisplay();
-            for (Category category : categories) {
-                category.setActual(0);
-            }
+            categories.clear();
+            binding.layoutAnyChartView.removeAllViews();
             viewModel.getAll();
+        });
+        binding.cardViewLineChart.setOnClickListener(v -> {
+            startActivity(new Intent(requireActivity(), LineChartActivity.class));
         });
 
         viewModel.getCategoriesLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result == null || result.isEmpty()) return;
+            categories.clear();
             List<Category> expenseList = result.stream()
                     .filter(c -> "expense".equalsIgnoreCase(c.getType()))
                     .collect(Collectors.toList());
@@ -89,6 +88,13 @@ public class ChartFragment extends Fragment {
         });
         viewModel.getTransactionsLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result == null) return;
+            if (result.isEmpty()) {
+                binding.tvEmpty.setVisibility(View.VISIBLE);
+                binding.layoutAnyChartView.setVisibility(View.GONE);
+                return;
+            }
+            binding.tvEmpty.setVisibility(View.GONE);
+            binding.layoutAnyChartView.setVisibility(View.VISIBLE);
             for (Transactions transactions : result) {
                 for (Category category : categories) {
                     if (category.getId() == transactions.getCategoryId()) {
@@ -100,6 +106,8 @@ public class ChartFragment extends Fragment {
             setupPieChart();
         });
 
+        categories.clear();
+        binding.layoutAnyChartView.removeAllViews();
         viewModel.getAll();
     }
 
@@ -109,7 +117,8 @@ public class ChartFragment extends Fragment {
     }
 
     private void setupPieChart() {
-        binding.anyChartView.setProgressBar(binding.progressBar);
+        AnyChartView anyChartView = new AnyChartView(requireContext());
+        anyChartView.setProgressBar(binding.progressBar);
 
         Pie pie = AnyChart.pie();
 
@@ -141,7 +150,8 @@ public class ChartFragment extends Fragment {
                 .itemsLayout(LegendLayout.HORIZONTAL)
                 .align(Align.CENTER);
 
-        binding.anyChartView.setChart(pie);
+        anyChartView.setChart(pie);
+        binding.layoutAnyChartView.addView(anyChartView);
     }
 
     @Override

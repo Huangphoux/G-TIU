@@ -1,4 +1,4 @@
-package com.example.g_tiu.ui.category;
+package com.example.g_tiu.ui.chart;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CategoryViewModel extends ViewModel {
+public class ChartViewModel extends ViewModel {
 
     public LocalDate currentDate = LocalDate.now();
     private GTiuDBHelper dbHelper;
