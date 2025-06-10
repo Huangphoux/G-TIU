@@ -215,7 +215,11 @@ public class AddCategoryFragment extends Fragment
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((MainActivity) requireActivity()).showMenu();
+        try {
+            ((MainActivity) requireActivity()).showMenu();
+        } catch (Exception ignored) {
+
+        }
     }
 
     @Override

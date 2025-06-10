@@ -296,7 +296,11 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((MainActivity) requireActivity()).showMenu();
+        try {
+            ((MainActivity) requireActivity()).showMenu();
+        } catch (Exception ignored) {
+
+        }
     }
 
     @Override
