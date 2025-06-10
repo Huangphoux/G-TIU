@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/text_bg_main">
 
     <View
         android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@color/color_main"
+        android:background="@color/color_main_v2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,8 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@drawable/bg_border_category"
-            android:padding="5dp" />
+            android:padding="5dp"
+            app:tint="@color/white" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvColor"

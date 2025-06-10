@@ -86,7 +86,7 @@ public class AddCategoryFragment extends Fragment
         });
         viewModel.getIconLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.ivIcon.setImageResource(result.getResId());
-            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.black)));
+            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_main)));
         });
         viewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.tvTitle.setText("Sửa phân loại");

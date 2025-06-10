@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/text_bg_main">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvMonthYear"
@@ -13,7 +13,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/raleway_regular"
-        android:textColor="@color/black"
+        android:textColor="@color/text_main"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +90,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:background="#F9F9F9"
+        android:background="@color/text_bg_trans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +100,8 @@
         android:id="@+id/layoutKeyword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
+        android:layout_marginTop="15dp"
+        android:background="@color/text_bg_trans"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -158,7 +158,7 @@
         android:id="@+id/layoutSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/text_bg_trans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutKeyword">

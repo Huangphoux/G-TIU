@@ -55,7 +55,7 @@ public class IconFragment extends Fragment {
             View colorView = LayoutInflater.from(requireContext()).inflate(R.layout.icon_item, binding.flexboxLayout, false);
             AppCompatImageView ivIcon = colorView.findViewById(R.id.ivIcon);
             ivIcon.setImageResource(icon.getResId());
-            ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.black)));
+            ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_main)));
 
             colorView.setOnClickListener(v -> {
                 if (onIconListener != null) {

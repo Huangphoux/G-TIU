@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="14dp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/text_bg_main"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
@@ -56,7 +56,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Ăn uống"
-                android:textColor="@color/black"
+                android:textColor="@color/text_main"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/ivDetail"
                 app:layout_constraintStart_toEndOf="@id/ivCategoryType"

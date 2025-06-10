@@ -164,7 +164,7 @@ public class TransactionsViewModel extends ViewModel {
         if (!keywords.contains(keyword)) {
             keywords.add(keyword);
         }
-        if (isSkipObs) {
+        if (!isSkipObs) {
             keywordLiveData.postValue(keywords);
         }
     }

@@ -49,6 +49,9 @@ public class TagFragment extends Fragment {
             isSelect = getArguments().getBoolean("is_select");
             onTagClickListener = (OnTagClickListener) getArguments().getSerializable("on_listener");
         }
+        binding.ivBack.setOnClickListener(v -> {
+            findNavController(view).popBackStack();
+        });
         if (isSelect) {
             binding.ivDone.setVisibility(View.GONE);
             binding.edtName.setVisibility(View.GONE);

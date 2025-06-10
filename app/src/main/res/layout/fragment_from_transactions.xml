@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/text_bg_main">
 
     <View
         android:id="@+id/header"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="@color/color_main"
+        android:background="@color/color_main_v2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@color/text_bg_main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +145,7 @@
                         android:layout_height="wrap_content"
                         android:paddingVertical="10dp"
                         android:text="---Chọn danh mục---"
+                        android:textColor="@color/text_bg_main"
                         android:visibility="visible" />
 
                     <LinearLayout
@@ -168,7 +169,7 @@
                                 android:layout_marginStart="10dp"
                                 android:padding="5dp"
                                 app:srcCompat="@drawable/icons_expenses"
-                                app:tint="@color/color_main" />
+                                app:tint="@color/text_bg_main" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvCategoryType"
@@ -179,7 +180,7 @@
                                 android:includeFontPadding="false"
                                 android:text="Chi tiêu"
                                 android:textAllCaps="true"
-                                android:textColor="@color/color_main" />
+                                android:textColor="@color/text_bg_main" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -195,7 +196,7 @@
                             android:includeFontPadding="false"
                             android:text="Ăn uống"
                             android:textAllCaps="true"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/text_bg_main" />
                     </LinearLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
@@ -235,7 +236,7 @@
                         android:layout_height="40dp"
                         android:padding="15dp"
                         app:srcCompat="@drawable/ic_prev_month"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/text_bg_main" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvDayMonthYear"
@@ -258,7 +259,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/tvCount"
                         app:srcCompat="@drawable/ic_prev_month"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/text_bg_main" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
 
@@ -290,7 +291,7 @@
                     android:layout_height="match_parent"
                     android:padding="6dp"
                     app:srcCompat="@drawable/baseline_add_24"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/text_bg_main" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.flexbox.FlexboxLayout
