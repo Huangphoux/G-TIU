@@ -1,6 +1,8 @@
 package com.example.g_tiu.item;
 
-public class Transactions {
+import java.io.Serializable;
+
+public class Transactions implements Serializable {
     private long id;
     private String date;
     private long amount;

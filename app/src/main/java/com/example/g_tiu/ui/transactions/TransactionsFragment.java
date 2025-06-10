@@ -111,11 +111,9 @@ public class TransactionsFragment extends Fragment
                 binding.tagText.setVisibility(View.VISIBLE);
                 binding.tagClose.setVisibility(View.VISIBLE);
                 binding.tagMore.setVisibility(View.GONE);
-                binding.tagClose.setOnClickListener(v -> {
-                    viewModel.applyFilterKeyword(null);
-                });
+                binding.tagClose.setOnClickListener(v -> viewModel.applyFilterKeyword(null));
                 binding.tagText.setText(result.getName());
-            };
+            }
         });
         fetchData();
     }
@@ -156,7 +154,15 @@ public class TransactionsFragment extends Fragment
 
     @Override
     public void onClick(Transactions transactions) {
-
+        ((MainActivity) requireActivity()).hideMenu();
+        if (getView() != null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("transactions", transactions);
+            Navigation.findNavController(getView()).navigate(
+                    R.id.action_navigation_transactions_to_navigation_from_transactions,
+                    bundle
+            );
+        }
     }
 
     @Override

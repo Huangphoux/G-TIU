@@ -145,7 +145,7 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         db.delete(TABLE_CATEGORY, COL_ID + "=?", new String[]{categoryId});
     }
 
-    public void delete(int transactionId) {
+    public void deleteTransaction(long transactionId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TRANSACTIONS, COL_TRANSACTION_ID + "=?", new String[]{String.valueOf(transactionId)});
     }

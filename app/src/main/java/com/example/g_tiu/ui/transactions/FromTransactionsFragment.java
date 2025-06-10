@@ -2,6 +2,8 @@ package com.example.g_tiu.ui.transactions;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,6 +35,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
+import kotlin.collections.ArrayDeque;
+
 public class FromTransactionsFragment extends Fragment implements TagFragment.OnTagClickListener {
 
     private FragmentFromTransactionsBinding binding;
@@ -49,6 +53,7 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
         return binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -142,8 +147,25 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
                 Toast.makeText(requireContext(), "Vui lòng chọn danh mục", Toast.LENGTH_SHORT).show();
                 return;
             }
-            viewModel.addTransaction(currentDate, amount, note);
+            if (viewModel.getTransactionsResult().getValue() != null) {
+                viewModel.updateTransaction(currentDate, amount, note);
+            } else {
+                viewModel.addTransaction(currentDate, amount, note);
+            }
         });
+        binding.ivDelete.setOnClickListener(v -> new AlertDialog.Builder(requireContext())
+                .setMessage("Bạn có chắc chắn muốn xóa giao dịch này?")
+                .setCancelable(false)
+                .setPositiveButton("Có", (dialog, which) -> {
+                    viewModel.deleteTransactions();
+                    Toast.makeText(requireContext(), "Đã xoá", Toast.LENGTH_SHORT).show();
+                    ((MainActivity) requireActivity()).showMenu();
+                    requireActivity().getOnBackPressedDispatcher().onBackPressed();
+                })
+                .setNegativeButton("Không", (dialog, which) -> {
+                })
+                .create()
+                .show());
         updateMonthYearDisplay();
         viewModel.getCategoryLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
@@ -178,7 +200,53 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
                 requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
+        viewModel.getUpdateTransactions().observe(getViewLifecycleOwner(), result -> {
+            if (result == null || !result) {
+                Toast.makeText(requireContext(), "Sửa giao dịch thất bại", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireContext(), "Sửa giao dịch thành công", Toast.LENGTH_SHORT).show();
+                ((MainActivity) requireActivity()).showMenu();
+                requireActivity().getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
+        viewModel.getTransactionsResult().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) return;
 
+            binding.tvTitle.setText("Sửa giao dịch");
+            binding.ivDelete.setVisibility(View.VISIBLE);
+            binding.edtAmount.setText(String.valueOf(result.getAmount()));
+            binding.edtNote.setText(result.getNote());
+
+            binding.layoutSelectCategory.setVisibility(View.GONE);
+            binding.layoutCategory.setVisibility(View.VISIBLE);
+
+            binding.tvCategoryType.setText(result.getCategory().getType());
+            binding.tvCategoryName.setText(result.getCategory().getName());
+
+            currentDate = LocalDate.parse(result.getDate());
+
+            updateMonthYearDisplay();
+
+            if (TextUtils.isEmpty(result.getKeys())) {
+                return;
+            }
+            String[] keys = result.getKeys().split(",");
+            binding.flexboxLayout.setVisibility(View.VISIBLE);
+            binding.tvEmptyKeyword.setVisibility(View.GONE);
+            List<Keyword> keywords = new ArrayDeque<>();
+
+            for (String key : keys) {
+                key = key.trim();
+                if (TextUtils.isEmpty(key)) continue;
+                for (Keyword keyword : viewModel.keywordList) {
+                    if (keyword.getName().equals(key)) {
+                        keywords.add(keyword);
+                        viewModel.addKeyword(keyword, true);
+                    }
+                }
+            }
+            addKeyword(keywords);
+        });
         viewModel.getKeywordLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.flexboxLayout.setVisibility(View.VISIBLE);
             binding.tvEmptyKeyword.setVisibility(View.GONE);
@@ -186,6 +254,7 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
             binding.flexboxLayout.removeAllViews();
             addKeyword(result);
         });
+        viewModel.setArguments(getArguments());
     }
 
     private void addKeyword(List<Keyword> keywords) {
@@ -238,6 +307,6 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
 
     @Override
     public void onClickListener(Keyword keyword) {
-        viewModel.addKeyword(keyword);
+        viewModel.addKeyword(keyword, false);
     }
 }

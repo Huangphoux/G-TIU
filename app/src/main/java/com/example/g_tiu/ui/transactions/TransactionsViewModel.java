@@ -2,6 +2,7 @@ package com.example.g_tiu.ui.transactions;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.os.Bundle;
 import android.text.TextUtils;
 
 import androidx.lifecycle.LiveData;
@@ -40,10 +41,21 @@ public class TransactionsViewModel extends ViewModel {
         return categoryLiveData;
     }
 
+    private final MutableLiveData<Transactions> transactionsResult = new MutableLiveData<>();
+
+    public LiveData<Transactions> getTransactionsResult() {
+        return transactionsResult;
+    }
+
     private final MutableLiveData<Boolean> insertLiveData = new MutableLiveData<>();
 
     public LiveData<Boolean> getInsertTransactions() {
         return insertLiveData;
+    }
+    private final MutableLiveData<Boolean> updateLiveData = new MutableLiveData<>();
+
+    public LiveData<Boolean> getUpdateTransactions() {
+        return updateLiveData;
     }
 
     private final MutableLiveData<List<Keyword>> keywordLiveData = new MutableLiveData<>();
@@ -54,6 +66,13 @@ public class TransactionsViewModel extends ViewModel {
 
     public void init(Application application) {
         dbHelper = new GTiuDBHelper(application.getApplicationContext());
+        getAllKeys();
+    }
+
+    public void setArguments(Bundle bundle) {
+        if (bundle != null && bundle.containsKey("transactions")) {
+            transactionsResult.postValue((Transactions) bundle.getSerializable("transactions"));
+        }
     }
 
     private int year, month;
@@ -106,17 +125,64 @@ public class TransactionsViewModel extends ViewModel {
         });
     }
 
+    public void updateTransaction(LocalDate date, String amount, String note) {
+        executor.execute(() -> {
+            try {
+                Transactions tr = new Transactions(
+                        date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        Long.parseLong(amount.replaceAll(",", "")),
+                        Objects.requireNonNull(categoryLiveData.getValue()).getId(),
+                        note
+                );
+                String result = keywords.stream()
+                        .map(Keyword::getName)
+                        .collect(Collectors.joining(", "));
+
+                tr.setKeys(result);
+                updateLiveData.postValue(dbHelper.update(tr));
+            } catch (Exception e) {
+                updateLiveData.postValue(null);
+            }
+        });
+    }
+
+    public void deleteTransactions() {
+        executor.execute(() -> {
+            try {
+                if (transactionsResult.getValue() != null) {
+                    dbHelper.deleteTransaction(transactionsResult.getValue().getId());
+                }
+            } catch (Exception ignored) {
+
+            }
+        });
+    }
+
     private final ArrayList<Keyword> keywords = new ArrayList<>();
 
-    public void addKeyword(Keyword keyword) {
+    public void addKeyword(Keyword keyword, boolean isSkipObs) {
         if (!keywords.contains(keyword)) {
             keywords.add(keyword);
         }
-        keywordLiveData.postValue(keywords);
+        if (isSkipObs) {
+            keywordLiveData.postValue(keywords);
+        }
     }
 
     public void removeKeyword(Keyword keyword) {
         keywords.remove(keyword);
+    }
+
+    public final List<Keyword> keywordList = new ArrayList<>();
+
+    public void getAllKeys() {
+        executor.execute(() -> {
+            try {
+                keywordList.addAll(dbHelper.getAllKeyWords());
+            } catch (Exception ignored) {
+
+            }
+        });
     }
 
     private final MutableLiveData<Keyword> keyFilterLiveData = new MutableLiveData<>();
