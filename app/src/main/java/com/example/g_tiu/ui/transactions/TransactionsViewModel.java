@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -118,6 +119,7 @@ public class TransactionsViewModel extends ViewModel {
                         .collect(Collectors.joining(", "));
 
                 tr.setKeys(result);
+                Log.d("GT345_x:", "addTransaction is call");
                 insertLiveData.postValue(dbHelper.add(tr));
             } catch (Exception e) {
                 insertLiveData.postValue(null);

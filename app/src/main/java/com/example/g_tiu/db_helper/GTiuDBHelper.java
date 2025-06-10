@@ -235,12 +235,17 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
                         list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
                     }
                 } else {
+                    boolean isAddTrans = false;
                     for (String key : keySplit) {
-                        if (!isMatchKeySearch) break;
+                        if (!isMatchKeySearch) continue;
 
-                        if (keyword.isEmpty() || key.equals(keyword)) {
-                            list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
+                        if (TextUtils.isEmpty(keyword) || key.equals(keyword)) {
+                            isAddTrans = true;
+                            break;
                         }
+                    }
+                    if (isAddTrans) {
+                        list.add(new Transactions(id, date, amount, categoryId, note, keys, createAt, category));
                     }
                 }
             } while (cursor.moveToNext());

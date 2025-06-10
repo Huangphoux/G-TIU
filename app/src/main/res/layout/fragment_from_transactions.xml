@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:paddingVertical="10dp"
                         android:text="---Chọn danh mục---"
-                        android:textColor="@color/text_bg_main"
+                        android:textColor="@color/black"
                         android:visibility="visible" />
 
                     <LinearLayout
@@ -169,7 +169,7 @@
                                 android:layout_marginStart="10dp"
                                 android:padding="5dp"
                                 app:srcCompat="@drawable/icons_expenses"
-                                app:tint="@color/text_bg_main" />
+                                app:tint="@color/black" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvCategoryType"
@@ -180,7 +180,7 @@
                                 android:includeFontPadding="false"
                                 android:text="Chi tiêu"
                                 android:textAllCaps="true"
-                                android:textColor="@color/text_bg_main" />
+                                android:textColor="@color/black" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -196,7 +196,7 @@
                             android:includeFontPadding="false"
                             android:text="Ăn uống"
                             android:textAllCaps="true"
-                            android:textColor="@color/text_bg_main" />
+                            android:textColor="@color/black" />
                     </LinearLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.cardview.widget.CardView>
@@ -291,7 +291,7 @@
                     android:layout_height="match_parent"
                     android:padding="6dp"
                     app:srcCompat="@drawable/baseline_add_24"
-                    app:tint="@color/text_bg_main" />
+                    app:tint="@color/black" />
             </androidx.cardview.widget.CardView>
 
             <com.google.android.flexbox.FlexboxLayout
