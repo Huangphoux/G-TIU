@@ -1,11 +1,15 @@
 package com.example.g_tiu.ui;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
@@ -18,26 +22,35 @@ import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
 import com.example.g_tiu.databinding.ActivityLineChartBinding;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LineChartActivity extends AppCompatActivity {
 
     private ActivityLineChartBinding binding;
+    private LineChartViewModel viewModel;
+    private int count = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        viewModel = new ViewModelProvider(this).get(LineChartViewModel.class);
+        viewModel.init(getApplication());
         binding = ActivityLineChartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        viewModel.getTransactionsLiveData().observe(this, result -> {
+            loadChart();
+        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        String[] months = {"2 tháng", "3 tháng", "6 tháng, 9 tháng"};
+        String[] months = {"2 tháng", "3 tháng", "6 tháng", "9 tháng"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -47,8 +60,32 @@ public class LineChartActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerTime.setAdapter(adapter);
         binding.spinnerTime.setSelection(0);
+        binding.spinnerTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    count = 2;
+                } else if (position == 1) {
+                    count = 3;
+                } else if (position == 2) {
+                    count = 6;
+                } else if (position == 3) {
+                    count = 9;
+                }
+                viewModel.getAll(count);
+            }
 
-        binding.anyChartView.setProgressBar(binding.progressBar);
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
+    private void loadChart() {
+        binding.layoutAnyChartView.removeAllViews();
+        AnyChartView anyChartView = new AnyChartView(this);
+        anyChartView.setProgressBar(binding.progressBar);
         Cartesian cartesian = AnyChart.line();
 
         cartesian.animation(true);
@@ -68,9 +105,14 @@ public class LineChartActivity extends AppCompatActivity {
         cartesian.xAxis(0).labels().padding(5d, 0d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
-        seriesData.add(new CustomDataEntry("4/2025", 1.3, 1.2, 0.8));
-        seriesData.add(new CustomDataEntry("5/2025", 2.0, 1.73, 2.0));
-        seriesData.add(new CustomDataEntry("6/2025", 1.4, 1.0, 1.3));
+        YearMonth currentMonth = YearMonth.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+
+        for (int i = count - 1; i >= 0; i--) {
+            YearMonth month = currentMonth.minusMonths(i);
+            String monthStr = formatter.format(month);
+            seriesData.add(new CustomDataEntry(monthStr, 1.3, 1.2, 0.8));
+        }
 
         Set set = Set.instantiate();
         set.data(seriesData);
@@ -118,7 +160,8 @@ public class LineChartActivity extends AppCompatActivity {
         cartesian.legend().fontSize(12d);
         cartesian.legend().padding(0d, 0d, 10d, 0d);
 
-        binding.anyChartView.setChart(cartesian);
+        anyChartView.setChart(cartesian);
+        binding.layoutAnyChartView.addView(anyChartView);
     }
 
     @Override
