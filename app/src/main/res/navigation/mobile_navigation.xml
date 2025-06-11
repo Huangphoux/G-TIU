@@ -87,10 +87,16 @@
         android:name="com.example.g_tiu.ui.icon.IconFragment"
         tools:layout="@layout/fragment_icon" />
 
+    <!--    <fragment-->
+    <!--        android:id="@+id/navigation_chart"-->
+    <!--        android:name="com.example.g_tiu.ui.report.chart.ChartFragment"-->
+    <!--        tools:layout="@layout/fragment_chart" />-->
+
     <fragment
-        android:id="@+id/navigation_chart"
-        android:name="com.example.g_tiu.ui.chart.ChartFragment"
-        tools:layout="@layout/fragment_chart" />
+        android:id="@+id/navigation_report"
+        android:name="com.example.g_tiu.ui.report.ReportFragment"
+        tools:layout="@layout/fragment_report" />
+
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.g_tiu.ui.settings.SettingsFragment"

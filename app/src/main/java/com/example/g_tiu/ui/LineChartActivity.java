@@ -21,27 +21,59 @@ import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
 import com.example.g_tiu.databinding.ActivityLineChartBinding;
+import com.example.g_tiu.item.Transactions;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Pair;
+import kotlin.Triple;
+
 public class LineChartActivity extends AppCompatActivity {
 
     private ActivityLineChartBinding binding;
     private LineChartViewModel viewModel;
     private int count = 2;
+    private List<Pair<String, Triple<Number, Number, Number>>> dataChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dataChart = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(LineChartViewModel.class);
         viewModel.init(getApplication());
         binding = ActivityLineChartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel.getTransactionsLiveData().observe(this, result -> {
+            if (result == null) {
+                binding.layoutAnyChartView.setVisibility(View.GONE);
+                return;
+            }
+            dataChart.clear();
+            binding.layoutAnyChartView.removeAllViews();
+            binding.layoutAnyChartView.setVisibility(View.VISIBLE);
+            Number expense = 0;
+            Number income = 0;
+            Number saving = 0;
+            for (Pair<String, List<Transactions>> pair : result) {
+                for (Transactions transaction : pair.getSecond()) {
+                    if (transaction.getCategory().getType().equalsIgnoreCase("expense")) {
+                        expense = transaction.getAmount();
+                    } else if (transaction.getCategory().getType().equalsIgnoreCase("income")) {
+                        income = transaction.getAmount();
+                    } else if (transaction.getCategory().getType().equalsIgnoreCase("saving")) {
+                        saving = transaction.getAmount();
+                    }
+                }
+                dataChart.add(new Pair<>(pair.getFirst(), new Triple<>(
+                        expense.longValue() / 1000,
+                        income.longValue() / 1000,
+                        saving.longValue() / 1000
+                )));
+            }
             loadChart();
         });
     }
@@ -101,17 +133,16 @@ public class LineChartActivity extends AppCompatActivity {
 
         cartesian.title("Biểu đồ đường");
 
-        cartesian.yAxis(0).title("Số tiền (Đơn vị: triệu VNĐ)");
+        cartesian.yAxis(0).title("Số tiền (x1.000 VNĐ)");
         cartesian.xAxis(0).labels().padding(5d, 0d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
-        YearMonth currentMonth = YearMonth.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
 
-        for (int i = count - 1; i >= 0; i--) {
-            YearMonth month = currentMonth.minusMonths(i);
-            String monthStr = formatter.format(month);
-            seriesData.add(new CustomDataEntry(monthStr, 1.3, 1.2, 0.8));
+        for (int i = 0; i < count; i++) {
+            String x = dataChart.get(i).getFirst();
+            Triple<Number, Number, Number> y = dataChart.get(i).getSecond();
+
+            seriesData.add(new CustomDataEntry(x, y.getFirst(), y.getSecond(), y.getThird()));
         }
 
         Set set = Set.instantiate();

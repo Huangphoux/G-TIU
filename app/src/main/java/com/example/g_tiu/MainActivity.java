@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hideMenu() {
-        binding.navView.setVisibility(View.INVISIBLE);
+        binding.navView.setVisibility(View.GONE);
     }
 
     public void showMenu() {

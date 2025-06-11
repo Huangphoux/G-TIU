@@ -100,7 +100,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 binding.layoutBudget.setVisibility(View.GONE);
             }
             binding.ivIcon.setImageResource(AppConstants.getIcons().get(category.getIcon()).getResId());
-            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.getRoot().getContext(), R.color.black)));
+            binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.getRoot().getContext(), R.color.color_main)));
             binding.cardColor.setCardBackgroundColor(ColorStateList.valueOf(android.graphics.Color.parseColor(category.getHex())));
 
             binding.getRoot().setOnClickListener(v -> {

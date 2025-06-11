@@ -2,7 +2,6 @@ package com.example.g_tiu.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.text.TextUtils;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,11 +11,13 @@ import com.example.g_tiu.db_helper.GTiuDBHelper;
 import com.example.g_tiu.item.Transactions;
 
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import kotlin.Pair;
 
 public class LineChartViewModel extends ViewModel {
 
@@ -27,9 +28,9 @@ public class LineChartViewModel extends ViewModel {
         dbHelper = new GTiuDBHelper(application.getApplicationContext());
     }
 
-    private final MutableLiveData<List<Transactions>> transactions = new MutableLiveData<>();
+    private final MutableLiveData<List<Pair<String, List<Transactions>>>> transactions = new MutableLiveData<>();
 
-    public LiveData<List<Transactions>> getTransactionsLiveData() {
+    public LiveData<List<Pair<String, List<Transactions>>>> getTransactionsLiveData() {
         return transactions;
     }
 
@@ -38,17 +39,19 @@ public class LineChartViewModel extends ViewModel {
 
         executor.execute(() -> {
             try {
-                List<Transactions> result = new ArrayList<>();
+                List<Pair<String, List<Transactions>>> result = new ArrayList<>();
                 YearMonth currentMonth = YearMonth.now();
-
-                for (int i = 0; i < 3; i++) {
+                for (int i = count - 1; i >= 0; i--) {
                     YearMonth month = currentMonth.minusMonths(i);
                     String monthStr = String.format("%02d", month.getMonthValue());
                     String datePrefix = month.getYear() + "-" + monthStr + "-";
 
-                    result.addAll(dbHelper.getAllTransactions(datePrefix));
+                    Pair<String, List<Transactions>> pair = new Pair<>(
+                            monthStr + "/" + currentMonth.getYear(),
+                            dbHelper.getAllTransactions(datePrefix)
+                    );
+                    result.add(pair);
                 }
-
                 transactions.postValue(result);
             } catch (Exception e) {
                 transactions.postValue(null);

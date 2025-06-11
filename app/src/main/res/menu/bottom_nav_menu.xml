@@ -12,7 +12,7 @@
         android:title="@string/title_giaoDich" />
 
     <item
-        android:id="@+id/navigation_chart"
+        android:id="@+id/navigation_report"
         android:icon="@drawable/baseline_pie_chart_24"
         android:title="@string/title_baoCao" />
 

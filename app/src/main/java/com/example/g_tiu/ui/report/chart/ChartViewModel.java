@@ -1,4 +1,4 @@
-package com.example.g_tiu.ui.chart;
+package com.example.g_tiu.ui.report.chart;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
