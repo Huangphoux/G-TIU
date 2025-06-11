@@ -141,6 +141,9 @@ public class TransactionsViewModel extends ViewModel {
                         .collect(Collectors.joining(", "));
 
                 tr.setKeys(result);
+                if (transactionsResult.getValue() != null) {
+                    tr.setId(transactionsResult.getValue().getId());
+                }
                 updateLiveData.postValue(dbHelper.update(tr));
             } catch (Exception e) {
                 updateLiveData.postValue(null);

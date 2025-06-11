@@ -178,7 +178,6 @@
                                 android:layout_marginStart="10dp"
                                 android:fontFamily="@font/raleway_medium"
                                 android:includeFontPadding="false"
-                                android:text="Chi tiêu"
                                 android:textAllCaps="true"
                                 android:textColor="@color/black" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -194,7 +193,6 @@
                             android:fontFamily="@font/raleway_medium"
                             android:gravity="center_vertical"
                             android:includeFontPadding="false"
-                            android:text="Ăn uống"
                             android:textAllCaps="true"
                             android:textColor="@color/black" />
                     </LinearLayout>

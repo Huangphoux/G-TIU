@@ -220,8 +220,12 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
             binding.layoutSelectCategory.setVisibility(View.GONE);
             binding.layoutCategory.setVisibility(View.VISIBLE);
 
-            binding.tvCategoryType.setText(result.getCategory().getType());
-            binding.tvCategoryName.setText(result.getCategory().getName());
+            if (result.getCategory() != null){
+                    viewModel.setCategory(result.getCategory());
+
+            }
+//            binding.tvCategoryType.setText(result.getCategory().getType());
+//            binding.tvCategoryName.setText(result.getCategory().getName());
 
             currentDate = LocalDate.parse(result.getDate());
 
