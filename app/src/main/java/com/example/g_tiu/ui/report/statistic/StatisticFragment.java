@@ -73,8 +73,6 @@ public class StatisticFragment extends Fragment {
 
             double average = (double) (expense - income - saving) / total;
             average *= 100;
-
-            // Format: tối đa 2 chữ số sau dấu phẩy, không hiện .00 nếu là số nguyên
             DecimalFormat df = new DecimalFormat("0.##");
             String percent = df.format(average);
             binding.tvAverage.setText(percent + "%");

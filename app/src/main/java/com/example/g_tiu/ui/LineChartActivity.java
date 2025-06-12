@@ -69,8 +69,8 @@ public class LineChartActivity extends AppCompatActivity {
                     }
                 }
                 dataChart.add(new Pair<>(pair.getFirst(), new Triple<>(
-                        expense.longValue() / 1000,
                         income.longValue() / 1000,
+                        expense.longValue() / 1000,
                         saving.longValue() / 1000
                 )));
             }
