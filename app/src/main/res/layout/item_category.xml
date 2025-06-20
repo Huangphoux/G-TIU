@@ -28,7 +28,7 @@
         app:layout_constraintStart_toEndOf="@id/cardColor"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_fire_hydrant"
-        app:tint="@color/color_main"/>
+        app:tint="@color/color_main" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
@@ -87,6 +87,20 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLastTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/raleway_medium"
+        android:gravity="center_vertical"
+        android:includeFontPadding="false"
+        android:paddingVertical="5dp"
+        android:textAllCaps="true"
+        android:textColor="@color/text_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"

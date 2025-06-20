@@ -287,9 +287,12 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME));
             String type = cursor.getString(cursor.getColumnIndexOrThrow(COL_TYPE));
+            int icon = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ICON));
             long budget = cursor.getLong(cursor.getColumnIndexOrThrow(COL_BUDGET));
 
-            return new Category(id, name, type, budget);
+            Category category = new Category(id, name, type, budget);
+            category.setIcon(icon);
+            return category;
         }
 
         cursor.close();

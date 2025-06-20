@@ -109,9 +109,14 @@ public class CategoryFragment extends Fragment {
                 }
 
                 for (Category category : categories) {
+                    long lastTime = 0;
                     if (category.getId() == transactions.getCategoryId()) {
+                        if (lastTime < transactions.getCreateTime()) {
+                            lastTime = transactions.getCreateTime();
+                        }
                         category.setActual(category.getActual() + transactions.getAmount());
                     }
+                    category.setLastTime(lastTime);
                 }
             }
             adapter.notifyDataSetChanged();

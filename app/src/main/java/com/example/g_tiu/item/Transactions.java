@@ -12,24 +12,6 @@ public class Transactions implements Serializable {
     private String keys;
     private Category category;
 
-    public Transactions(int id, String date, long amount, int categoryId, String note) {
-        this.id = id;
-        this.date = date;
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.note = note;
-    }
-
-    public Transactions(long id, String date, long amount, int categoryId, String note, long createTime, Category category) {
-        this.id = id;
-        this.date = date;
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.note = note;
-        this.createTime = createTime;
-        this.category = category;
-    }
-
     public Transactions(long id, String date, long amount, int categoryId, String note, String keys, long createTime, Category category) {
         this.id = id;
         this.date = date;
@@ -46,26 +28,7 @@ public class Transactions implements Serializable {
         this.amount = amount;
         this.categoryId = categoryId;
         this.note = note;
-    }
-
-    public Transactions(int id, String date, long amount, int categoryId, String note, Category category) {
-        this.id = id;
-        this.date = date;
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.note = note;
-        this.category = category;
-    }
-
-    public Transactions(long id, String date, long amount, int categoryId, String note, long createTime, String keys, Category category) {
-        this.id = id;
-        this.date = date;
-        this.amount = amount;
-        this.categoryId = categoryId;
-        this.note = note;
-        this.createTime = createTime;
-        this.keys = keys;
-        this.category = category;
+        createTime = System.currentTimeMillis();
     }
 
     public Transactions() {

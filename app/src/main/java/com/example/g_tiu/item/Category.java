@@ -12,6 +12,8 @@ public class Category implements Serializable {
     private int icon;
     private long actual;
 
+    private long lastTime;
+
     public Category(int id, String name, boolean isHeader) {
         this.id = id;
         this.name = name;
@@ -123,5 +125,13 @@ public class Category implements Serializable {
 
     public void setIcon(int icon) {
         this.icon = icon;
+    }
+
+    public long getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(long lastTime) {
+        this.lastTime = lastTime;
     }
 }

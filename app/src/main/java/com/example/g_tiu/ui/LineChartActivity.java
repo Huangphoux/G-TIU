@@ -23,8 +23,6 @@ import com.anychart.graphics.vector.Stroke;
 import com.example.g_tiu.databinding.ActivityLineChartBinding;
 import com.example.g_tiu.item.Transactions;
 
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,10 +53,12 @@ public class LineChartActivity extends AppCompatActivity {
             dataChart.clear();
             binding.layoutAnyChartView.removeAllViews();
             binding.layoutAnyChartView.setVisibility(View.VISIBLE);
-            Number expense = 0;
-            Number income = 0;
-            Number saving = 0;
+
             for (Pair<String, List<Transactions>> pair : result) {
+                Number expense = 0;
+                Number income = 0;
+                Number saving = 0;
+
                 for (Transactions transaction : pair.getSecond()) {
                     if (transaction.getCategory().getType().equalsIgnoreCase("expense")) {
                         expense = transaction.getAmount();

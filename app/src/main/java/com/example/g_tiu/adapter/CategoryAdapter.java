@@ -17,6 +17,8 @@ import com.example.g_tiu.helper.AppConstants;
 import com.example.g_tiu.item.Category;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -102,6 +104,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             binding.ivIcon.setImageResource(AppConstants.getIcons().get(category.getIcon()).getResId());
             binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(binding.getRoot().getContext(), R.color.color_main)));
             binding.cardColor.setCardBackgroundColor(ColorStateList.valueOf(android.graphics.Color.parseColor(category.getHex())));
+
+            if (category.getLastTime() != 0) {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+                Date date = new Date(category.getLastTime());
+                binding.tvLastTime.setText(sdf.format(date));
+                binding.tvLastTime.setVisibility(View.VISIBLE);
+            } else {
+                binding.tvLastTime.setVisibility(View.GONE);
+            }
 
             binding.getRoot().setOnClickListener(v -> {
                 if (onCategoryListener != null) {
