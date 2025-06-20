@@ -55,23 +55,23 @@ public class LineChartActivity extends AppCompatActivity {
             binding.layoutAnyChartView.setVisibility(View.VISIBLE);
 
             for (Pair<String, List<Transactions>> pair : result) {
-                Number expense = 0;
-                Number income = 0;
-                Number saving = 0;
+                long expense = 0;
+                long income = 0;
+                long saving = 0;
 
                 for (Transactions transaction : pair.getSecond()) {
                     if (transaction.getCategory().getType().equalsIgnoreCase("expense")) {
-                        expense = transaction.getAmount();
+                        expense += transaction.getAmount();
                     } else if (transaction.getCategory().getType().equalsIgnoreCase("income")) {
-                        income = transaction.getAmount();
+                        income += transaction.getAmount();
                     } else if (transaction.getCategory().getType().equalsIgnoreCase("saving")) {
-                        saving = transaction.getAmount();
+                        saving += transaction.getAmount();
                     }
                 }
                 dataChart.add(new Pair<>(pair.getFirst(), new Triple<>(
-                        income.longValue() / 1000,
-                        expense.longValue() / 1000,
-                        saving.longValue() / 1000
+                        income / 1000,
+                        expense / 1000,
+                        saving / 1000
                 )));
             }
             loadChart();
