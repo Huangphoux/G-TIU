@@ -152,7 +152,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
-        app:layout_constraintWidth_percent="0.26" />
+        app:layout_constraintWidth_percent="0.28" />
 
     <Button
         android:id="@+id/buttonIncome"
@@ -170,7 +170,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonExpense"
         app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
-        app:layout_constraintWidth_percent="0.26" />
+        app:layout_constraintWidth_percent="0.28" />
 
     <Button
         android:id="@+id/buttonSaving"
@@ -188,7 +188,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonIncome"
         app:layout_constraintTop_toBottomOf="@+id/tvCategoryType"
-        app:layout_constraintWidth_percent="0.26" />
+        app:layout_constraintWidth_percent="0.28" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -197,6 +197,7 @@
         android:layout_marginTop="10dp"
         android:text="Ngân sách hàng tháng"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSaving" />
 
@@ -214,6 +215,7 @@
         android:inputType="number"
         android:paddingHorizontal="20dp"
         android:textColorHint="#C1C1C1"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSaving" />

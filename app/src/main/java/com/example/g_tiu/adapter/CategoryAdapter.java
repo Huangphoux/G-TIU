@@ -94,8 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void bind(Category category, boolean isShowBudget) {
             binding.tvName.setText(category.getName());
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
-            String formatted = format.format(category.getBudget());
-            binding.tvBudget.setText(format.format(category.getActual()) + "/" + formatted);
+            binding.tvBudget.setText(format.format(category.getActual()));
             if (isShowBudget) {
                 binding.layoutBudget.setVisibility(View.VISIBLE);
             } else {
@@ -152,16 +151,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     binding.tvName.setText("tiết kiệm");
                     break;
             }
-            NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
-            String formatted = format.format(category.getBudget());
-
-//            binding.tvTotal.setText(format.format(category.getActual()) + "/" + formatted);
-//
-//            if (isShowBudget) {
-//                binding.tvTotal.setVisibility(View.VISIBLE);
-//            } else {
-//                binding.tvTotal.setVisibility(View.GONE);
-//            }
         }
     }
 

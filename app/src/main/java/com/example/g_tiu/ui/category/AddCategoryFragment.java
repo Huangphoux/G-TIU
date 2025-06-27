@@ -2,6 +2,7 @@ package com.example.g_tiu.ui.category;
 
 import static androidx.navigation.Navigation.findNavController;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,6 +53,7 @@ public class AddCategoryFragment extends Fragment
         return binding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -81,9 +83,9 @@ public class AddCategoryFragment extends Fragment
             binding.flexboxLayout.removeAllViews();
             addKeyword(result);
         });
-        viewModel.getColorLiveData().observe(getViewLifecycleOwner(), result -> {
-            binding.ivColor.setImageTintList(ColorStateList.valueOf(android.graphics.Color.parseColor(result.getHex())));
-        });
+        viewModel.getColorLiveData().observe(getViewLifecycleOwner(), result ->
+                binding.ivColor.setImageTintList(ColorStateList.valueOf(android.graphics.Color.parseColor(result.getHex())))
+        );
         viewModel.getIconLiveData().observe(getViewLifecycleOwner(), result -> {
             binding.ivIcon.setImageResource(result.getResId());
             binding.ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_main)));
@@ -186,27 +188,15 @@ public class AddCategoryFragment extends Fragment
 
         binding.ivDone.setOnClickListener(v -> {
             String name = binding.edtName.getText().toString();
-            String budget = binding.edtBudget.getText().toString().replace(",", "");
-            if (name.isEmpty() || budget.isEmpty()) {
+            if (name.isEmpty()) {
                 Toast.makeText(requireContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                 return;
             }
-            long budgetLong = -1;
-            try {
-                budgetLong = Long.parseLong(budget);
-            } catch (Exception e) {
-                Toast.makeText(requireContext(), "Vui lòng nhập đúng định dạng số", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (budgetLong <= 0) {
-                Toast.makeText(requireContext(), "Vui lòng nhập ngân sách hơn 0", Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (viewModel.getCategoryLiveData().getValue() != null) {
-                Category category = new Category(viewModel.getCategoryLiveData().getValue().getId(), name, type, budgetLong);
+                Category category = new Category(viewModel.getCategoryLiveData().getValue().getId(), name, type, 0);
                 viewModel.updateCategory(category);
             } else {
-                Category category = new Category(name, type, budgetLong);
+                Category category = new Category(name, type, 0);
                 viewModel.insertCategory(category);
             }
         });
