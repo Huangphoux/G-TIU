@@ -1,6 +1,5 @@
 package com.example.g_tiu.ui.report.statistic;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +12,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.g_tiu.R;
 import com.example.g_tiu.databinding.FragmentStatisticBinding;
-import com.example.g_tiu.item.Keyword;
 import com.example.g_tiu.item.Transactions;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class StatisticFragment extends Fragment {
+
+    private static StatisticFragment instance;
+
+    public static StatisticFragment getInstance() {
+        if (instance == null) {
+            instance = new StatisticFragment();
+        }
+        return instance;
+    }
 
     private FragmentStatisticBinding binding;
     private StatisticViewModel viewModel;
@@ -116,6 +120,10 @@ public class StatisticFragment extends Fragment {
         });
 
         viewModel.getTags();
+    }
+
+    public void fetchData() {
+        viewModel.getAllTransactions();
     }
 
     private void updateMonthYearDisplay() {

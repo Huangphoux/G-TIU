@@ -2,6 +2,7 @@ package com.example.g_tiu.ui.report.chart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChartFragment extends Fragment {
+
+    private static ChartFragment instance;
+
+    public static ChartFragment getInstance() {
+        if (instance == null) {
+            instance = new ChartFragment();
+        }
+        return instance;
+    }
+
     private FragmentChartBinding binding;
     private ChartViewModel viewModel;
     private final List<Category> categories = new ArrayList<>();
@@ -37,6 +48,7 @@ public class ChartFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d("GT456_x", "onCreateView is call");
         binding = FragmentChartBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(ChartViewModel.class);
         viewModel.init(requireActivity().getApplication());
@@ -46,6 +58,7 @@ public class ChartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("GT456_x", "onViewCreated is call");
 
         updateMonthYearDisplay();
         binding.ivNext.setOnClickListener(v -> {
@@ -94,6 +107,7 @@ public class ChartFragment extends Fragment {
                 return;
             }
             binding.tvEmpty.setVisibility(View.GONE);
+//            binding.layoutAnyChartView.removeAllViews();
             binding.layoutAnyChartView.setVisibility(View.VISIBLE);
             for (Transactions transactions : result) {
                 for (Category category : categories) {
@@ -106,9 +120,16 @@ public class ChartFragment extends Fragment {
             setupPieChart();
         });
 
-        categories.clear();
-        binding.layoutAnyChartView.removeAllViews();
-        viewModel.getAll();
+        fetchData();
+    }
+
+    public void fetchData() {
+        try {
+            categories.clear();
+            viewModel.getAll();
+        } catch (Exception e) {
+            Log.e("GT456_x", "fetchData error " + e.getMessage());
+        }
     }
 
     private void updateMonthYearDisplay() {

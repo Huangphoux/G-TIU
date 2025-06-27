@@ -8,8 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.g_tiu.databinding.FragmentReportBinding;
+import com.example.g_tiu.ui.report.chart.ChartFragment;
+import com.example.g_tiu.ui.report.statistic.StatisticFragment;
+
+import java.util.List;
 
 public class ReportFragment extends Fragment {
 
@@ -19,11 +24,32 @@ public class ReportFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentReportBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-        ReportPagerAdapter adapter = new ReportPagerAdapter(this);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ReportPagerAdapter adapter = new ReportPagerAdapter(this, List.of(
+                ChartFragment.getInstance(),
+                StatisticFragment.getInstance()
+        ));
         binding.viewPager.setAdapter(adapter);
 
-        return binding.getRoot();
+        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                Fragment fragment = adapter.getFragmentAt(position);
+                if (fragment instanceof ChartFragment) {
+                    ((ChartFragment) fragment).fetchData();
+                } else if (fragment instanceof StatisticFragment) {
+                    ((StatisticFragment) fragment).fetchData();
+                }
+            }
+        });
     }
 
     @Override

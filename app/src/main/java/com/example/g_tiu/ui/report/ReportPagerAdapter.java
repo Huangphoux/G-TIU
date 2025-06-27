@@ -4,27 +4,29 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.g_tiu.ui.report.chart.ChartFragment;
-import com.example.g_tiu.ui.report.statistic.StatisticFragment;
+import java.util.List;
 
 public class ReportPagerAdapter extends FragmentStateAdapter {
 
-    public ReportPagerAdapter(@NonNull Fragment fragment) {
+    private final List<Fragment> fragmentList;
+
+    public ReportPagerAdapter(@NonNull Fragment fragment, List<Fragment> fragments) {
         super(fragment);
+        this.fragmentList = fragments;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0) {
-            return new ChartFragment();
-        } else {
-            return new StatisticFragment();
-        }
+        return fragmentList.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return fragmentList.size();
+    }
+
+    public Fragment getFragmentAt(int position) {
+        return fragmentList.get(position);
     }
 }
