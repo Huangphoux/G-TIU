@@ -94,7 +94,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public void bind(Category category, boolean isShowBudget) {
             binding.tvName.setText(category.getName());
             NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
-            binding.tvBudget.setText(format.format(category.getActual()));
+            if (category.getBudget() > 0) {
+                String formatted = format.format(category.getBudget());
+                binding.tvBudget.setText(format.format(category.getActual()) + "/" + formatted);
+            } else {
+                binding.tvBudget.setText(format.format(category.getActual()));
+            }
             if (isShowBudget) {
                 binding.layoutBudget.setVisibility(View.VISIBLE);
             } else {

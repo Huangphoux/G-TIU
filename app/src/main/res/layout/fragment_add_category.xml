@@ -197,7 +197,6 @@
         android:layout_marginTop="10dp"
         android:text="Ngân sách hàng tháng"
         android:textSize="14sp"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttonSaving" />
 
@@ -215,7 +214,6 @@
         android:inputType="number"
         android:paddingHorizontal="20dp"
         android:textColorHint="#C1C1C1"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSaving" />

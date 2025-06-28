@@ -188,15 +188,23 @@ public class AddCategoryFragment extends Fragment
 
         binding.ivDone.setOnClickListener(v -> {
             String name = binding.edtName.getText().toString();
+            String budget = binding.edtBudget.getText().toString().replace(",", "");
             if (name.isEmpty()) {
                 Toast.makeText(requireContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
                 return;
             }
+            long budgetLong = 0;
+            try {
+                budgetLong = Long.parseLong(budget);
+            } catch (Exception e) {
+                Toast.makeText(requireContext(), "Vui lòng nhập đúng định dạng số", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (viewModel.getCategoryLiveData().getValue() != null) {
-                Category category = new Category(viewModel.getCategoryLiveData().getValue().getId(), name, type, 0);
+                Category category = new Category(viewModel.getCategoryLiveData().getValue().getId(), name, type, budgetLong);
                 viewModel.updateCategory(category);
             } else {
-                Category category = new Category(name, type, 0);
+                Category category = new Category(name, type, budgetLong);
                 viewModel.insertCategory(category);
             }
         });
