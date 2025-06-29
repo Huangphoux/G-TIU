@@ -197,8 +197,8 @@ public class AddCategoryFragment extends Fragment
             try {
                 budgetLong = Long.parseLong(budget);
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "Vui lòng nhập đúng định dạng số", Toast.LENGTH_SHORT).show();
-                return;
+                Log.e("GT456_x", "Error: " + e);
+                // Vẫn tiếp tục vì ngân sách là không quan trọng
             }
             if (viewModel.getCategoryLiveData().getValue() != null) {
                 Category category = new Category(viewModel.getCategoryLiveData().getValue().getId(), name, type, budgetLong);
