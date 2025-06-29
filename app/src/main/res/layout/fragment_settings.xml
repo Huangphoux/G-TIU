@@ -46,12 +46,16 @@
             android:text="Theo hệ thống" />
     </RadioGroup>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/btnApply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/bg_button"
+        android:gravity="center"
+        android:paddingVertical="10dp"
         android:text="Áp dụng"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rgTheme" />
