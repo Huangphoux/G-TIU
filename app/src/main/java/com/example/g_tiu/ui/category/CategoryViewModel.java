@@ -108,7 +108,14 @@ public class CategoryViewModel extends ViewModel {
     private final ArrayList<Keyword> keywords = new ArrayList<>();
 
     public void addKeyword(Keyword keyword) {
-        if (!keywords.contains(keyword)) {
+        boolean isExists = false;
+        for (Keyword key : keywords) {
+            if (key.getName().equals(keyword.getName())) {
+                isExists = true;
+                break;
+            }
+        }
+        if (!isExists) {
             keywords.add(keyword);
         }
         keywordLiveData.postValue(keywords);
