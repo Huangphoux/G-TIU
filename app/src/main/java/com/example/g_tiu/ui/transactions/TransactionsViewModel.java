@@ -53,6 +53,7 @@ public class TransactionsViewModel extends ViewModel {
     public LiveData<Boolean> getInsertTransactions() {
         return insertLiveData;
     }
+
     private final MutableLiveData<Boolean> updateLiveData = new MutableLiveData<>();
 
     public LiveData<Boolean> getUpdateTransactions() {
@@ -163,10 +164,17 @@ public class TransactionsViewModel extends ViewModel {
         });
     }
 
-    private final ArrayList<Keyword> keywords = new ArrayList<>();
+    final ArrayList<Keyword> keywords = new ArrayList<>();
 
     public void addKeyword(Keyword keyword, boolean isSkipObs) {
-        if (!keywords.contains(keyword)) {
+        boolean isExists = false;
+        for (Keyword key : keywords) {
+            if (key.getName().equals(keyword.getName())) {
+                isExists = true;
+                break;
+            }
+        }
+        if (!isExists) {
             keywords.add(keyword);
         }
         if (!isSkipObs) {

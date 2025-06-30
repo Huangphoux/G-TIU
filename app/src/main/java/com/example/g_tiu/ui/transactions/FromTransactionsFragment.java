@@ -43,6 +43,7 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
     private TransactionsViewModel viewModel;
 
     private LocalDate currentDate = LocalDate.now();
+    private boolean transactionHandled = false;
 
     @Nullable
     @Override
@@ -50,6 +51,69 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
         binding = FragmentFromTransactionsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(TransactionsViewModel.class);
         viewModel.init(requireActivity().getApplication());
+
+        viewModel.getTransactionsResult().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) return;
+
+            binding.tvTitle.setText("Sửa giao dịch");
+            binding.ivDelete.setVisibility(View.VISIBLE);
+            binding.edtAmount.setText(String.valueOf(result.getAmount()));
+            binding.edtNote.setText(result.getNote());
+
+            binding.layoutSelectCategory.setVisibility(View.GONE);
+            binding.layoutCategory.setVisibility(View.VISIBLE);
+
+            if (result.getCategory() != null) {
+                viewModel.setCategory(result.getCategory());
+
+            }
+
+            currentDate = LocalDate.parse(result.getDate());
+
+            updateMonthYearDisplay();
+
+            if (TextUtils.isEmpty(result.getKeys())) {
+                return;
+            }
+            if (!transactionHandled) {
+                transactionHandled = true;
+                String[] keys = result.getKeys().split(",");
+                binding.flexboxLayout.setVisibility(View.VISIBLE);
+                binding.tvEmptyKeyword.setVisibility(View.GONE);
+                List<Keyword> keywords = new ArrayDeque<>();
+
+                for (String key : keys) {
+                    key = key.trim();
+                    if (TextUtils.isEmpty(key)) continue;
+                    for (Keyword keyword : viewModel.keywordList) {
+                        if (keyword.getName().equals(key) && !keywords.contains(keyword)) {
+                            keywords.add(keyword);
+                            viewModel.addKeyword(keyword, true);
+                        }
+                    }
+                }
+                binding.flexboxLayout.removeAllViews();
+                addKeyword(keywords);
+            } else {
+                binding.flexboxLayout.removeAllViews();
+                if (viewModel.keywords.isEmpty()) {
+                    binding.flexboxLayout.setVisibility(View.GONE);
+                    binding.tvEmptyKeyword.setVisibility(View.VISIBLE);
+                } else {
+                    binding.flexboxLayout.setVisibility(View.VISIBLE);
+                    binding.tvEmptyKeyword.setVisibility(View.GONE);
+                    addKeyword(viewModel.keywords);
+                }
+            }
+        });
+        viewModel.getKeywordLiveData().observe(getViewLifecycleOwner(), result -> {
+            if (result == null) return;
+            binding.flexboxLayout.setVisibility(View.VISIBLE);
+            binding.tvEmptyKeyword.setVisibility(View.GONE);
+
+            binding.flexboxLayout.removeAllViews();
+            addKeyword(result);
+        });
         return binding.getRoot();
     }
 
@@ -209,55 +273,7 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
                 requireActivity().getOnBackPressedDispatcher().onBackPressed();
             }
         });
-        viewModel.getTransactionsResult().observe(getViewLifecycleOwner(), result -> {
-            if (result == null) return;
 
-            binding.tvTitle.setText("Sửa giao dịch");
-            binding.ivDelete.setVisibility(View.VISIBLE);
-            binding.edtAmount.setText(String.valueOf(result.getAmount()));
-            binding.edtNote.setText(result.getNote());
-
-            binding.layoutSelectCategory.setVisibility(View.GONE);
-            binding.layoutCategory.setVisibility(View.VISIBLE);
-
-            if (result.getCategory() != null){
-                    viewModel.setCategory(result.getCategory());
-
-            }
-//            binding.tvCategoryType.setText(result.getCategory().getType());
-//            binding.tvCategoryName.setText(result.getCategory().getName());
-
-            currentDate = LocalDate.parse(result.getDate());
-
-            updateMonthYearDisplay();
-
-            if (TextUtils.isEmpty(result.getKeys())) {
-                return;
-            }
-            String[] keys = result.getKeys().split(",");
-            binding.flexboxLayout.setVisibility(View.VISIBLE);
-            binding.tvEmptyKeyword.setVisibility(View.GONE);
-            List<Keyword> keywords = new ArrayDeque<>();
-
-            for (String key : keys) {
-                key = key.trim();
-                if (TextUtils.isEmpty(key)) continue;
-                for (Keyword keyword : viewModel.keywordList) {
-                    if (keyword.getName().equals(key)) {
-                        keywords.add(keyword);
-                        viewModel.addKeyword(keyword, true);
-                    }
-                }
-            }
-            addKeyword(keywords);
-        });
-        viewModel.getKeywordLiveData().observe(getViewLifecycleOwner(), result -> {
-            binding.flexboxLayout.setVisibility(View.VISIBLE);
-            binding.tvEmptyKeyword.setVisibility(View.GONE);
-
-            binding.flexboxLayout.removeAllViews();
-            addKeyword(result);
-        });
         viewModel.setArguments(getArguments());
     }
 
