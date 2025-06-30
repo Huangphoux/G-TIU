@@ -7,11 +7,11 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
+        style="@style/CustomBottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:background="?attr/colorSurface"
         android:elevation="0dp"
-        app:itemBackground="@color/text_bg_main"
+        app:itemBackground="@drawable/nav_item_background"
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"

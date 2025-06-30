@@ -24,4 +24,19 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/raleway_regular</item>
     </style>
+
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconSize">24dp</item>
+        <item name="itemPaddingTop">6dp</item>
+        <item name="itemPaddingBottom">12dp</item>
+        <item name="labelVisibilityMode">selected</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavText</item>
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">10sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
 </resources>

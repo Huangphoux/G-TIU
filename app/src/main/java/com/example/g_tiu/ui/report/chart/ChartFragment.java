@@ -102,6 +102,7 @@ public class ChartFragment extends Fragment {
         viewModel.getTransactionsLiveData().observe(getViewLifecycleOwner(), result -> {
             if (result == null) return;
             if (result.isEmpty()) {
+                binding.progressBar.setVisibility(View.GONE);
                 binding.tvEmpty.setVisibility(View.VISIBLE);
                 binding.layoutAnyChartView.setVisibility(View.GONE);
                 return;
@@ -125,6 +126,7 @@ public class ChartFragment extends Fragment {
 
     public void fetchData() {
         try {
+            binding.progressBar.setVisibility(View.VISIBLE);
             categories.clear();
             viewModel.getAll();
         } catch (Exception e) {
