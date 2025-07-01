@@ -4,22 +4,22 @@
 
 ---
 
-## 🚀 Tính năng chính
+## 🚀 Tính năng chính:
 
-- ✅ Ghi nhận các khoản thu và chi
-- 📊 Thống kê chi tiêu theo ngày, tuần, tháng
-- 🧾 Phân loại chi tiêu theo danh mục (ăn uống, mua sắm, hoá đơn, v.v.)
-- 🔍 Tìm kiếm và lọc giao dịch
-- 🎨 Giao diện thân thiện, dễ sử dụng
+- ✅ Ghi nhận các khoản thu và chi.
+- 📊 Thống kê chi tiêu theo ngày, tuần, tháng.
+- 🧾 Phân loại chi tiêu theo danh mục (ăn uống, mua sắm, hoá đơn, v.v.).
+- 🔍 Tìm kiếm và lọc giao dịch.
+- 🎨 Giao diện thân thiện, dễ sử dụng.
 
 ---
 
-## 🛠 Yêu cầu hệ thống
+## 🛠 Yêu cầu hệ thống:
 
-- Android Studio **Giraffe** trở lên (khuyến khích bản mới nhất)
+- Android Studio **Giraffe** trở lên (khuyến khích bản mới nhất).
 - JDK 17+
-- Gradle 8.1 trở lên (sử dụng Gradle wrapper kèm project)
-- Thiết bị Android API 26 trở lên (Android 8.0+)
+- Gradle 8.1 trở lên (sử dụng Gradle wrapper kèm project).
+- Thiết bị Android API 26 trở lên (Android 8.0+).
 
 ---
 
@@ -44,7 +44,7 @@ git clone https://github.com/Huangphoux/G-TIU.git
 
 ---
 
-## 📁 Cấu trúc thư mục
+## 📁 Cấu trúc thư mục:
 
 ```
 G-TIU/
@@ -82,27 +82,27 @@ G-TIU/
 
 ---
 
-## 🤝 Đóng góp
+## 🤝 Đóng góp:
 
 Chúng tôi hoan nghênh mọi đóng góp!
 
-1. Fork repository
-2. Tạo nhánh mới `feature/ten-tinh-nang`
-3. Commit thay đổi
-4. Tạo Pull Request để được xem xét
+1. Fork repository.
+2. Tạo nhánh mới `feature/ten-tinh-nang`.
+3. Commit thay đổi.
+4. Tạo Pull Request để được xem xét.
 
 ---
 
-## 📄 Giấy phép
+## 📄 Giấy phép:
 
 Dự án được phát hành dưới giấy phép [MIT License](LICENSE).
 
 ---
 
-## 📬 Liên hệ
+## 📬 Liên hệ:
 
 Nếu bạn gặp lỗi hoặc có góp ý, vui lòng mở [Issue](https://github.com/Huangphoux/G-TIU/issues) hoặc liên hệ qua GitHub.
 
 ---
 
-Cảm ơn bạn đã sử dụng G-TIU!
+Cảm ơn bạn đã sử dụng G-TIU !

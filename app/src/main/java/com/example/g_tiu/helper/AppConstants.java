@@ -43,7 +43,7 @@ public class AppConstants {
         colorList.add(new Color(6, "#F6FF33"));  // vàng sáng
         colorList.add(new Color(7, "#8D33FF"));  // tím
         colorList.add(new Color(8, "#FF8D33"));  // cam sáng
-        colorList.add(new Color(9, "#33FF8D"));  // xanh mint
+        colorList.add(new Color(9, "#33FF8D"));  // xanh bạc hà
         colorList.add(new Color(10, "#338DFF")); // xanh dương nhạt
         colorList.add(new Color(11, "#FF3333")); // đỏ
         colorList.add(new Color(12, "#33FF33")); // xanh lá
@@ -53,7 +53,7 @@ public class AppConstants {
         colorList.add(new Color(16, "#FFFF33")); // vàng
         colorList.add(new Color(17, "#800000")); // đỏ rượu vang
         colorList.add(new Color(18, "#008080")); // teal
-        colorList.add(new Color(19, "#808000")); // olive
+        colorList.add(new Color(19, "#808000")); // vàng olive
         colorList.add(new Color(20, "#000000")); // đen
         return colorList;
     }
