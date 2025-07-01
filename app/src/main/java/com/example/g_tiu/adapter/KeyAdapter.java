@@ -73,7 +73,6 @@ public class KeyAdapter extends RecyclerView.Adapter<KeyAdapter.KeywordViewHolde
         }
     }
 
-
     public interface OnKeywordListener {
         void onClickItemKeyword(Keyword keyword);
     }

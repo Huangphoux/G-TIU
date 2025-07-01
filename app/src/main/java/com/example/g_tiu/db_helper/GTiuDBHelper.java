@@ -279,30 +279,6 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
 //        return list;
 //    }
 
-//    public ArrayList<Transactions> getAllTransactionsWhereCategory(String datePrefix, int categoryId) {
-//        ArrayList<Transactions> list = new ArrayList<>();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.rawQuery("SELECT * FROM tb_transactions WHERE col_transaction_date LIKE ? AND col_transaction_category_id = ?",
-//                new String[]{datePrefix + "%", String.valueOf(categoryId)});
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TRANSACTION_ID));
-//                String date = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_DATE));
-//                long amount = cursor.getLong(cursor.getColumnIndexOrThrow(COL_TRANSACTION_AMOUNT));
-//                int categoryId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_TRANSACTION_CATEGORY_ID));
-//                String note = cursor.getString(cursor.getColumnIndexOrThrow(COL_TRANSACTION_NOTE));
-//
-//                Category category = getOneById(categoryId);
-//                list.add(new Transactions(id, date, amount, categoryId, note, category));
-//            } while (cursor.moveToNext());
-//        }
-//
-//        cursor.close();
-//        return list;
-//    }
-
     public Category getOneById(int categoryId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE " + COL_ID + "=?", new String[]{String.valueOf(categoryId)});
@@ -361,6 +337,5 @@ public class GTiuDBHelper extends SQLiteOpenHelper {
         cursor.close();
         return false;
     }
-
     // endregion
 }
