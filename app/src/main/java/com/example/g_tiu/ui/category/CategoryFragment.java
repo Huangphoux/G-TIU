@@ -250,3 +250,4 @@ public class CategoryFragment extends Fragment {
         binding = null;
     }
 }
+

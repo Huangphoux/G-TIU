@@ -75,3 +75,4 @@ public class SettingsFragment extends Fragment {
         super.onDestroyView();
     }
 }
+

@@ -95,3 +95,4 @@ public class StatisticViewModel extends ViewModel {
         });
     }
 }
+

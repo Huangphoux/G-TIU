@@ -77,3 +77,4 @@ public class KeyAdapter extends RecyclerView.Adapter<KeyAdapter.KeywordViewHolde
         void onClickItemKeyword(Keyword keyword);
     }
 }
+

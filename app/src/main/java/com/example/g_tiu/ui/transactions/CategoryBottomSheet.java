@@ -94,3 +94,4 @@ public class CategoryBottomSheet extends BottomSheetDialogFragment {
         binding = null;
     }
 }
+

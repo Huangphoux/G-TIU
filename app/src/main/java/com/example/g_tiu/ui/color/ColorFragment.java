@@ -74,3 +74,4 @@ public class ColorFragment extends Fragment {
         binding = null;
     }
 }
+

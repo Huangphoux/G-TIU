@@ -30,3 +30,4 @@ public class ReportPagerAdapter extends FragmentStateAdapter {
         return fragmentList.get(position);
     }
 }
+

@@ -35,3 +35,4 @@ public class BaoCaoFragment extends Fragment {
         binding = null;
     }
 }
+

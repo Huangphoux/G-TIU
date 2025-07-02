@@ -334,3 +334,4 @@ public class FromTransactionsFragment extends Fragment implements TagFragment.On
         viewModel.addKeyword(keyword, false);
     }
 }
+

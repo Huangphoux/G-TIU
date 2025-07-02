@@ -17,3 +17,4 @@ public class BaoCaoViewModel extends ViewModel {
         return mText;
     }
 }
+

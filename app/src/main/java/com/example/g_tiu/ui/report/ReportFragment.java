@@ -58,3 +58,4 @@ public class ReportFragment extends Fragment {
         super.onDestroyView();
     }
 }
+

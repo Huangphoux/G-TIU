@@ -219,3 +219,4 @@ public class TransactionsViewModel extends ViewModel {
         getAll(year, month);
     }
 }
+

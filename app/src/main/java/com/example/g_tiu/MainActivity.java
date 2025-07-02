@@ -48,5 +48,5 @@ public class MainActivity extends AppCompatActivity {
         binding = null;
         super.onDestroy();
     }
-
 }
+

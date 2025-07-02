@@ -79,3 +79,4 @@ public class IconFragment extends Fragment {
         binding = null;
     }
 }
+

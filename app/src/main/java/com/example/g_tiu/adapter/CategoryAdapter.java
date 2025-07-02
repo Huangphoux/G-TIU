@@ -165,3 +165,4 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onLongClickItemCategory(Category category);
     }
 }
+

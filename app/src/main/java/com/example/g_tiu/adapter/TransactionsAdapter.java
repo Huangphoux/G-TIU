@@ -140,3 +140,4 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         }
     }
 }
+

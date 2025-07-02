@@ -264,3 +264,4 @@ public class AddCategoryFragment extends Fragment
         viewModel.setIcon(icon);
     }
 }
+
